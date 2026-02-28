@@ -214,27 +214,3 @@ Stronger alumni network
 
 Financial empowerment of students
 
-🏆 Why This Is Hackathon-Winning
-Solves real university problems
-
-Combines career + academics + earning
-
-Scalable SaaS-ready structure
-
-AI-enhanced learning model
-
-Social engagement built-in
-
-Industry-aligned system
-
-If you want, I can now give you:
-
-🔥 A short 2-minute pitch script
-
-📊 A feature diagram for presentation
-
-💻 Clean folder structure
-
-🧠 Database schema idea
-
-🎨 UI section breakdown for frontend build

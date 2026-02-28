@@ -1,208 +1,240 @@
 # PIH-2026_Codestorm
 UIMS
+🎓 UIMS 2.0 – Smart University Innovation Portal
+A next-generation University Information & Opportunity Management System designed to empower students academically, professionally, and financially.
 
-## 🚀 Features
+🚀 Vision
+UIMS 2.0 is not just a university portal.
+It is a career accelerator, learning enhancer, and engagement ecosystem that connects students with opportunities, alumni, mentors, events, and income-generating tasks — all in one platform.
 
-### 🔐 Authentication & Security
-- Role-based login (Student / Faculty / Admin)
-- JWT token authentication with localStorage persistence
-- Protected routes with automatic role-based redirects
-- Global auth state via React Context API
+🌟 Core Features
+💼 1. Verified Earning Opportunities Portal
+A built-in earning ecosystem for students.
 
-### 📊 Student Dashboard
-| Module | Description |
-|--------|-------------|
-| **Overview** | Stat cards — Attendance %, Pending Assignments, Fee Status |
-| **Attendance** | Detailed attendance table with subject-wise breakdown |
-| **Results** | Semester grades table with CGPA/SGPA summary |
-| **Assignments** | View & submit assignments with file upload UI |
-| **Notice Board** | University-wide announcements and alerts |
-| **Fee Tracking** | Fee breakdown, payment history, and due status |
+Includes:
+✅ Verified Internships
 
-### 👨‍🏫 Faculty Dashboard
-| Module | Description |
-|--------|-------------|
-| **Mark Attendance** | Interactive checkbox grid per class/section |
-| **Upload Marks** | Tabular form for entering student marks |
-| **Create Assignments** | Rich assignment creation form |
-| **Announcements** | Post and manage class/department announcements |
+🚀 Local Startup Projects
 
-### 🛡️ Admin Dashboard
-| Module | Description |
-|--------|-------------|
-| **Manage Students** | Full CRUD interface with search & filters |
-| **Manage Faculty** | Full CRUD interface with search & filters |
-| **Notice Approvals** | Approve or reject submitted notices |
-| **Analytics** | Interactive charts & graphs (Recharts) — enrollment trends, attendance, performance |
+💻 Freelance Gigs
 
-### ✨ UX & Performance
-- 🌙 Dark / Light mode toggle
-- 📱 Fully responsive (mobile + tablet + desktop)
-- 📦 Lazy-loaded routes for fast initial load
-- 💀 Skeleton loaders for async content
-- 🔔 Toast notifications (Sonner)
-- ✅ Form validation with React Hook Form + Zod
-- 🔍 Search, filter & pagination on all tables
-- 🚫 Graceful empty states and error boundaries
-- ♻️ Reusable component architecture
+🧩 Micro‑tasks (Website Design, Data Entry, App Testing, Content Writing)
 
----
+Key Benefits:
+Students earn while studying
 
-## 🛠️ Tech Stack
+Real-world work experience
 
-| Layer | Technology |
-|-------|-----------|
-| **Framework** | React 18 |
-| **Build Tool** | Vite 5 |
-| **Styling** | Tailwind CSS v3 |
-| **UI Components** | ShadCN UI |
-| **Routing** | React Router v6 |
-| **State Management** | React Context API |
-| **Forms** | React Hook Form + Zod |
-| **Charts** | Recharts |
-| **HTTP Client** | Axios (mock-ready) |
-| **Icons** | Lucide React |
-| **Notifications** | Sonner |
-| **Utilities** | clsx, tailwind-merge, class-variance-authority |
+Verified listings only
 
----
+Direct application within portal
 
-## 📁 Project Structure
+Skill-based filtering
 
-```
-UIMS/
-├── public/
-│   └── vite.svg
-├── src/
-│   ├── components/
-│   │   ├── layout/                # App shell components
-│   │   │   ├── Sidebar.jsx        # Collapsible sidebar navigation
-│   │   │   ├── Navbar.jsx         # Top bar with profile & dark mode
-│   │   │   ├── DashboardLayout.jsx# Main layout wrapper
-│   │   │   └── MobileSidebar.jsx  # Sheet-based mobile nav
-│   │   ├── shared/                # Reusable components
-│   │   │   ├── DataTable.jsx      # Table with search, sort, pagination
-│   │   │   ├── StatCard.jsx       # Dashboard metric cards
-│   │   │   ├── PageHeader.jsx     # Page title + action buttons
-│   │   │   ├── EmptyState.jsx     # No-data placeholder
-│   │   │   ├── SkeletonCard.jsx   # Loading skeleton
-│   │   │   └── ErrorBoundary.jsx  # Error fallback UI
-│   │   └── ui/                    # ShadCN UI primitives (auto-generated)
-│   │       ├── button.jsx
-│   │       ├── card.jsx
-│   │       ├── dialog.jsx
-│   │       ├── input.jsx
-│   │       ├── table.jsx
-│   │       └── ...
-│   ├── context/
-│   │   ├── AuthContext.jsx        # Auth state, login/logout, role
-│   │   └── ThemeContext.jsx       # Dark/light mode state
-│   ├── data/
-│   │   └── mockData.js           # Structured mock datasets
-│   ├── hooks/
-│   │   ├── useAuth.js            # Auth context hook
-│   │   └── useTheme.js           # Theme context hook
-│   ├── lib/
-│   │   └── utils.js              # cn() helper & utilities
-│   ├── pages/
-│   │   ├── auth/
-│   │   │   └── LoginPage.jsx     # Login with role selection
-│   │   ├── student/
-│   │   │   ├── StudentDashboard.jsx
-│   │   │   ├── AttendancePage.jsx
-│   │   │   ├── ResultsPage.jsx
-│   │   │   ├── AssignmentsPage.jsx
-│   │   │   ├── NoticeBoardPage.jsx
-│   │   │   └── FeesPage.jsx
-│   │   ├── faculty/
-│   │   │   ├── FacultyDashboard.jsx
-│   │   │   ├── MarkAttendancePage.jsx
-│   │   │   ├── UploadMarksPage.jsx
-│   │   │   ├── CreateAssignmentPage.jsx
-│   │   │   └── AnnouncementsPage.jsx
-│   │   └── admin/
-│   │       ├── AdminDashboard.jsx
-│   │       ├── ManageStudentsPage.jsx
-│   │       ├── ManageFacultyPage.jsx
-│   │       ├── NoticeApprovalsPage.jsx
-│   │       └── AnalyticsPage.jsx
-│   ├── services/
-│   │   ├── api.js                # Axios instance + interceptors
-│   │   ├── authService.js        # Auth API calls
-│   │   ├── studentService.js     # Student API calls
-│   │   ├── facultyService.js     # Faculty API calls
-│   │   └── adminService.js       # Admin API calls
-│   ├── App.jsx                   # Router + providers
-│   ├── index.css                 # Tailwind directives + custom styles
-│   └── main.jsx                  # App entry point
-├── .gitignore
-├── index.html
-├── jsconfig.json                 # Path aliases (@/)
-├── package.json
-├── postcss.config.js
-├── tailwind.config.js
-├── vite.config.js
-├── components.json               # ShadCN config
-└── README.md
-```
+🤝 2. Alumni Mentorship Network
+A structured mentorship and referral platform.
 
----
+Features:
+Alumni directory (company, role, domain)
 
-## ⚡ Getting Started
+1:1 mentorship request system
 
-### Prerequisites
+Career guidance sessions
 
-- **Node.js** ≥ 18.x
-- **npm** ≥ 9.x (or yarn / pnpm)
+Referral system for internships/jobs
 
-### Installation
+Networking opportunities
 
-```bash
-# Clone the repository
-git clone https://github.com/YOUR_USERNAME/UIMS.git
-cd UIMS
+Impact:
+Stronger alumni-student bond
 
-# Install dependencies
-npm install
+Better job placement rates
 
-# Start development server
-npm run dev
-```
+Higher salary prospects
 
-The app will be running at **http://localhost:5173**
+Industry exposure before graduation
 
-### Build for Production
+📚 3. Smart Study System (PDF + Flashcards + Spaced Repetition)
+An integrated learning optimization engine.
 
-```bash
-npm run build
-npm run preview    # Preview production build locally
-```
+📖 PDF Reader
+Upload personal study PDFs
 
----
+In-browser PDF viewing using:
 
-## 🔑 Demo Credentials
+PDF.js
 
-| Role | Email | Password |
-|------|-------|----------|
-| **Student** | student@uims.edu | password123 |
-| **Faculty** | faculty@uims.edu | password123 |
-| **Admin** | admin@uims.edu | password123 |
+Adobe Embed API
 
-> **Note:** Authentication uses mock data. Replace the service layer with real API endpoints for production.
+Highlight & bookmark notes
 
----
+🧠 Auto Flashcard Generator
+Extract key concepts from PDF
 
-## 🖼️ Screenshots
+Generate Q&A flashcards automatically
 
-> Screenshots will be added after UI completion.
+Edit and customize flashcards
 
-| Page | Preview |
-|------|---------|
-| Login | _coming soon_ |
-| Student Dashboard | _coming soon_ |
-| Faculty Dashboard | _coming soon_ |
-| Admin Analytics | _coming soon_ |
-| Dark Mode | _coming soon_ |
-| Mobile View | _coming soon_ |
+🔁 Spaced Repetition Engine
+Smart revision scheduling
 
----
+Performance tracking
+
+Adaptive difficulty adjustment
+
+Result:
+Efficient learning. Better retention. Exam-ready preparation.
+
+🎯 4. Personalized Student Dashboard
+Each student gets a dynamic, interest-based dashboard.
+
+Personalization Includes:
+Favorite subjects
+
+Sports interests
+
+Hobbies
+
+Clubs & societies
+
+Workshops & events of interest
+
+Career domain preferences
+
+Dashboard Displays:
+Recommended internships
+
+Suggested events
+
+Study material suggestions
+
+Personalized mock tests
+
+Relevant news feed
+
+📰 5. Smart CUIMS Feed System
+A dynamic engagement feed similar to a social learning network.
+
+Feed Content:
+University events
+
+Workshops & seminars
+
+Competitions
+
+Internships
+
+Job opportunities
+
+Startup collaborations
+
+Engagement Features:
+Comment section on posts
+
+Like & save feature
+
+Teacher & staff posting capability
+
+Student project showcases
+
+Recommendation algorithm based on interests
+
+🧪 6. Personalized Testing System
+Subject-based mock tests
+
+Adaptive difficulty
+
+AI-based performance feedback
+
+Weak topic identification
+
+Recommended revision materials
+
+🛠 Tech Stack (Frontend)
+React + Vite
+
+Tailwind CSS
+
+ShadCN UI
+
+React Router
+
+Context API (Auth & Personalization)
+
+Axios (API integration)
+
+Recharts (Analytics)
+
+React Hook Form + Zod (Validation)
+
+PDF.js / Adobe Embed API
+
+Local storage / JWT Auth
+
+🏗 System Architecture Overview
+UIMS
+ ├── Authentication System
+ ├── Role-Based Dashboards
+ │     ├── Student
+ │     ├── Faculty
+ │     └── Admin
+ ├── Opportunity Engine
+ ├── Mentorship Module
+ ├── Smart Study Module
+ ├── Feed & Engagement System
+ ├── Personalization Engine
+ └── Analytics & Reporting
+🎯 Problem We Solve
+Universities lack:
+
+Centralized opportunity systems
+
+Real alumni networking integration
+
+Smart study optimization tools
+
+Personalized academic dashboards
+
+Student income-generation platforms
+
+Unified engagement feeds
+
+UIMS 2.0 bridges the gap between education, career, and earnings within one ecosystem.
+
+📈 Expected Impact
+Increased student engagement
+
+Higher internship participation
+
+Improved job placements
+
+Better academic performance
+
+Stronger alumni network
+
+Financial empowerment of students
+
+🏆 Why This Is Hackathon-Winning
+Solves real university problems
+
+Combines career + academics + earning
+
+Scalable SaaS-ready structure
+
+AI-enhanced learning model
+
+Social engagement built-in
+
+Industry-aligned system
+
+If you want, I can now give you:
+
+🔥 A short 2-minute pitch script
+
+📊 A feature diagram for presentation
+
+💻 Clean folder structure
+
+🧠 Database schema idea
+
+🎨 UI section breakdown for frontend build

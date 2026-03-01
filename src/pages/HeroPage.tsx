@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils"
 import { useRef, useEffect, useCallback, useState } from "react"
 import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Mail, Menu, SendHorizonal, X, GraduationCap } from "lucide-react"
+import { ArrowRight, Mail, Menu, SendHorizonal, X, GraduationCap, Users } from "lucide-react"
 
 // ========== GLOBE COMPONENT (User-provided, preserved exactly) ==========
 

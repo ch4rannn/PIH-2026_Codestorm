@@ -219,7 +219,7 @@ export default function HeroPage() {
             </header>
 
             <main>
-                <section className="overflow-hidden min-h-[100dvh] flex items-center pt-24 lg:pt-0">
+                <section className="overflow-hidden min-h-screen flex items-center justify-center pt-24 lg:pt-0">
                     <div className="relative mx-auto max-w-5xl px-6 w-full">
                         <div className="lg:flex lg:items-center lg:gap-12">
                             <motion.div

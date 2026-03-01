@@ -30,6 +30,7 @@ const menuConfig: Record<string, MenuItem[]> = {
                 { label: 'Attendance', path: '/academics/attendance' },
                 { label: 'Results', path: '/academics/results' },
                 { label: 'Assignments', path: '/academics/assignments' },
+                { label: 'Section & Groups', path: '/academics/groups' },
                 { label: 'Fee Tracking', path: '/academics/fees' },
             ]
         },
@@ -69,6 +70,7 @@ const menuConfig: Record<string, MenuItem[]> = {
                 { label: 'Attendance', path: '/academics/attendance' },
                 { label: 'Results', path: '/academics/results' },
                 { label: 'Assignments', path: '/academics/assignments' },
+                { label: 'Sections', path: '/academics/groups' },
             ]
         },
         { label: 'Social Feed', icon: MessageSquare, path: '/social' },

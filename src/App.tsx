@@ -41,6 +41,7 @@ const SocialFeed = lazy(() => import('@/pages/social/SocialFeed'))
 
 // Academics
 const AcademicsPage = lazy(() => import('@/pages/academics/AcademicsPage'))
+const AcademicGroups = lazy(() => import('@/pages/academics/AcademicGroups'))
 const NoticeBoard = lazy(() => import('@/pages/academics/NoticeBoard'))
 
 // Admin
@@ -72,6 +73,7 @@ function AppRoutes() {
           <Route path="/academics/attendance" element={<AcademicsPage />} />
           <Route path="/academics/results" element={<AcademicsPage />} />
           <Route path="/academics/assignments" element={<AcademicsPage />} />
+          <Route path="/academics/groups" element={<AcademicGroups />} />
           <Route path="/academics/fees" element={<AcademicsPage />} />
 
           {/* Career Hub */}

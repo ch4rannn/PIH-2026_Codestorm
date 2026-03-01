@@ -8,10 +8,9 @@ import { Separator } from '@/components/ui/separator'
 import { cn } from '@/lib/utils'
 import {
     LayoutDashboard, BookOpen, Briefcase, Users, GraduationCap,
-    MessageSquare, Settings, LogOut, Menu, X, Sun, Moon,
-    ClipboardList, CreditCard, Bell, FileText, ChevronLeft,
-    ChevronRight, Upload, Brain, UserCheck, Shield, BarChart3,
-    Newspaper, Search, Calendar, Heart, Trophy, Share2
+    MessageSquare, LogOut, Sun, Moon,
+    Bell, ChevronRight, UserCheck, Shield, BarChart3,
+    Menu, ChevronLeft, Search
 } from 'lucide-react'
 
 import type { LucideIcon } from 'lucide-react'
@@ -120,7 +119,7 @@ export default function DashboardLayout() {
 
     const isActive = (path: string) => location.pathname === path || location.pathname.startsWith(path + '/')
 
-    const SidebarContent = () => (
+    const renderSidebarContent = () => (
         <div className="flex flex-col h-full">
             {/* Logo */}
             <div className="flex items-center gap-3 px-4 py-5 border-b border-border">
@@ -219,7 +218,7 @@ export default function DashboardLayout() {
                 "hidden lg:flex flex-col border-r border-border bg-card transition-all duration-300 shrink-0",
                 sidebarOpen ? "w-64" : "w-16"
             )}>
-                <SidebarContent />
+                {renderSidebarContent()}
             </aside>
 
             {/* Mobile Sidebar Overlay */}
@@ -227,7 +226,7 @@ export default function DashboardLayout() {
                 <div className="fixed inset-0 z-50 lg:hidden">
                     <div className="absolute inset-0 bg-black/50" onClick={() => setMobileOpen(false)} />
                     <aside className="absolute left-0 top-0 bottom-0 w-64 bg-card border-r border-border z-10">
-                        <SidebarContent />
+                        {renderSidebarContent()}
                     </aside>
                 </div>
             )}

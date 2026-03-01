@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import {
     UserPlus, X, CheckCircle2, Loader2, GraduationCap,
-    Building2, MapPin, Briefcase, Linkedin, Plus, Trash2
+    Building2, Briefcase, Plus
 } from 'lucide-react'
 import { createAlumni } from '@/services/alumniService'
 
@@ -61,8 +61,8 @@ export default function AlumniRegisterForm({ open, onClose, onSuccess }: AlumniR
                 setForm({ name: '', email: '', role: '', company: '', batch: '', department: 'CS', location: '', experience: '', industry: 'Technology', linkedin: '', available: true })
                 setSkills([])
             }, 1500)
-        } catch (err: any) {
-            setError(err.message || 'Registration failed. Please try again.')
+        } catch (err: unknown) {
+            setError((err as Error).message || 'Registration failed. Please try again.')
         } finally {
             setLoading(false)
         }

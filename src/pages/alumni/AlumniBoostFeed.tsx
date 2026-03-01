@@ -10,7 +10,7 @@ import {
 } from 'lucide-react'
 import { getFeed, createFeedPost, toggleLike, type FeedPost } from '@/services/feedService'
 
-const typeConfig: Record<string, { icon: any; color: string; bg: string; label: string }> = {
+const typeConfig: Record<string, { icon: React.ElementType; color: string; bg: string; label: string }> = {
     achievement: { icon: Award, color: 'text-amber-500', bg: 'bg-amber-500/10', label: 'Achievement' },
     opportunity: { icon: Briefcase, color: 'text-blue-500', bg: 'bg-blue-500/10', label: 'Opportunity' },
     update: { icon: Rocket, color: 'text-emerald-500', bg: 'bg-emerald-500/10', label: 'Update' },
@@ -59,7 +59,11 @@ export default function AlumniBoostFeed() {
             const result = await toggleLike(postId, 'current-user')
             setLikedPosts(prev => {
                 const next = new Set(prev)
-                result.liked ? next.add(postId) : next.delete(postId)
+                if (result.liked) {
+                    next.add(postId)
+                } else {
+                    next.delete(postId)
+                }
                 return next
             })
             setPosts(prev => prev.map(p =>
@@ -72,7 +76,7 @@ export default function AlumniBoostFeed() {
         if (!newPost.author_name || !newPost.title || !newPost.content) return
         setCreating(true)
         try {
-            await createFeedPost({ ...newPost, tags: newTags } as any)
+            await createFeedPost({ ...newPost, tags: newTags } as Parameters<typeof createFeedPost>[0])
             setShowCreate(false)
             setNewPost({ author_name: '', author_role: '', author_company: '', author_batch: '', type: 'update', title: '', content: '', tagInput: '' })
             setNewTags([])

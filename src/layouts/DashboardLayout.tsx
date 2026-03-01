@@ -11,7 +11,7 @@ import {
     MessageSquare, Settings, LogOut, Menu, X, Sun, Moon,
     ClipboardList, CreditCard, Bell, FileText, ChevronLeft,
     ChevronRight, Upload, Brain, UserCheck, Shield, BarChart3,
-    Newspaper, Search
+    Newspaper, Search, Calendar, Heart, Trophy, Share2
 } from 'lucide-react'
 
 import type { LucideIcon } from 'lucide-react'
@@ -50,7 +50,15 @@ const menuConfig: Record<string, MenuItem[]> = {
                 { label: 'Progress', path: '/study/progress' },
             ]
         },
-        { label: 'Alumni Network', icon: Users, path: '/alumni' },
+        {
+            label: 'Alumni Network', icon: Users, path: '/alumni', children: [
+                { label: 'Directory', path: '/alumni' },
+                { label: 'Mentorship', path: '/alumni/mentorship' },
+                { label: 'Events', path: '/alumni/events' },
+                { label: 'Success Stories', path: '/alumni/stories' },
+                { label: 'Job Referrals', path: '/alumni/referrals' },
+            ]
+        },
         { label: 'Social Feed', icon: MessageSquare, path: '/social' },
         { label: 'Notice Board', icon: Bell, path: '/notices' },
     ],
@@ -78,7 +86,16 @@ const menuConfig: Record<string, MenuItem[]> = {
     ],
     alumni: [
         { label: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
-        { label: 'Mentorship', icon: Users, path: '/alumni/mentorship' },
+        {
+            label: 'Alumni Hub', icon: Users, path: '/alumni', children: [
+                { label: 'Directory', path: '/alumni' },
+                { label: 'Mentorship', path: '/alumni/mentorship' },
+                { label: 'Events', path: '/alumni/events' },
+                { label: 'Donations', path: '/alumni/donations' },
+                { label: 'Success Stories', path: '/alumni/stories' },
+                { label: 'Job Referrals', path: '/alumni/referrals' },
+            ]
+        },
         { label: 'Social Feed', icon: MessageSquare, path: '/social' },
         { label: 'Notice Board', icon: Bell, path: '/notices' },
     ],

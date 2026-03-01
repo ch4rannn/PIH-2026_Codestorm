@@ -24,6 +24,10 @@ const ApplicationHistory = lazy(() => import('@/pages/career/ApplicationHistory'
 // Alumni
 const AlumniDirectory = lazy(() => import('@/pages/alumni/AlumniDirectory'))
 const AlumniMentorship = lazy(() => import('@/pages/alumni/AlumniMentorship'))
+const AlumniEvents = lazy(() => import('@/pages/alumni/AlumniEvents'))
+const AlumniDonations = lazy(() => import('@/pages/alumni/AlumniDonations'))
+const AlumniSuccessStories = lazy(() => import('@/pages/alumni/AlumniSuccessStories'))
+const AlumniJobReferrals = lazy(() => import('@/pages/alumni/AlumniJobReferrals'))
 
 // Study
 const PdfLibrary = lazy(() => import('@/pages/study/PdfLibrary'))
@@ -84,6 +88,10 @@ function AppRoutes() {
           {/* Alumni */}
           <Route path="/alumni" element={<AlumniDirectory />} />
           <Route path="/alumni/mentorship" element={<AlumniMentorship />} />
+          <Route path="/alumni/events" element={<AlumniEvents />} />
+          <Route path="/alumni/donations" element={<AlumniDonations />} />
+          <Route path="/alumni/stories" element={<AlumniSuccessStories />} />
+          <Route path="/alumni/referrals" element={<AlumniJobReferrals />} />
 
           {/* Social */}
           <Route path="/social" element={<SocialFeed />} />

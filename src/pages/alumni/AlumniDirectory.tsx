@@ -4,8 +4,9 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { Search, Users, Building2, Calendar, MessageCircle, Share2, Linkedin, MapPin, Briefcase, Loader2 } from 'lucide-react'
+import { Search, Users, Building2, Calendar, MessageCircle, Share2, Linkedin, MapPin, Briefcase, Loader2, UserPlus } from 'lucide-react'
 import { getAlumni, type AlumniData, type AlumniListResponse } from '@/services/alumniService'
+import AlumniRegisterForm from './AlumniRegisterForm'
 
 export default function AlumniDirectory() {
     const [search, setSearch] = useState('')
@@ -19,6 +20,7 @@ export default function AlumniDirectory() {
     const [stats, setStats] = useState<AlumniListResponse['stats'] | null>(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
+    const [showRegister, setShowRegister] = useState(false)
 
     const fetchAlumni = useCallback(async () => {
         setLoading(true)
@@ -59,7 +61,12 @@ export default function AlumniDirectory() {
                     <h1 className="text-2xl font-bold">Alumni Network</h1>
                     <p className="text-muted-foreground text-sm">Connect with alumni for mentorship & referrals</p>
                 </div>
-                <Badge variant="outline">{alumniList.length} alumni found</Badge>
+                <div className="flex items-center gap-2">
+                    <Badge variant="outline">{alumniList.length} alumni found</Badge>
+                    <Button size="sm" className="gap-1.5" onClick={() => setShowRegister(true)}>
+                        <UserPlus className="w-3.5 h-3.5" />Register
+                    </Button>
+                </div>
             </div>
 
             {/* Stats */}
@@ -171,6 +178,12 @@ export default function AlumniDirectory() {
                     <p className="text-sm mt-1">Try adjusting your filters</p>
                 </CardContent></Card>
             )}
+            {/* Registration Modal */}
+            <AlumniRegisterForm
+                open={showRegister}
+                onClose={() => setShowRegister(false)}
+                onSuccess={fetchAlumni}
+            />
         </div>
     )
 }

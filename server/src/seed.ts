@@ -114,6 +114,60 @@ async function seed() {
     )
     console.log('  ✓ Notices')
 
+    // Career Listings — Internships
+    await pool.query(
+        `INSERT INTO career_listings (title, company, type, location, stipend, domain, duration, verified) VALUES
+        ('Frontend Developer Intern', 'TechCorp India', 'internship', 'Remote', '₹25,000/mo', 'Web Development', '3 months', true),
+        ('Data Science Intern', 'DataViz Inc', 'internship', 'Bangalore', '₹30,000/mo', 'Data Science', '6 months', true),
+        ('UI/UX Design Intern', 'DesignLab', 'internship', 'Hybrid - Delhi', '₹20,000/mo', 'Design', '4 months', true),
+        ('Backend Engineer Intern', 'CloudStack', 'internship', 'Remote', '₹28,000/mo', 'Backend', '6 months', false),
+        ('ML Research Intern', 'AI Labs', 'internship', 'Hyderabad', '₹35,000/mo', 'AI/ML', '3 months', true),
+        ('App Developer Intern', 'MobileFirst', 'internship', 'Remote', '₹22,000/mo', 'Mobile Dev', '4 months', true)`
+    )
+    console.log('  ✓ Internships')
+
+    // Career Listings — Freelance
+    await pool.query(
+        `INSERT INTO career_listings (title, company, type, budget, deadline, skills, difficulty, domain, verified) VALUES
+        ('Build E-commerce Website', 'LocalMart', 'freelance', '₹15,000', '2 weeks', '["React", "Node.js"]', 'Medium', 'Web Development', true),
+        ('Design Mobile App UI', 'FitTrack', 'freelance', '₹8,000', '1 week', '["Figma", "UI/UX"]', 'Easy', 'Design', true),
+        ('Data Entry - Product Catalog', 'ShopEasy', 'freelance', '₹5,000', '3 days', '["Excel", "Data Entry"]', 'Easy', 'Data Entry', true),
+        ('WordPress Blog Setup', 'TechBlog', 'freelance', '₹7,000', '1 week', '["WordPress", "SEO"]', 'Easy', 'Web Development', true),
+        ('App Testing & Bug Report', 'AppVenture', 'freelance', '₹3,000', '5 days', '["Testing", "QA"]', 'Easy', 'Testing', true),
+        ('Logo & Brand Identity', 'StartupXYZ', 'freelance', '₹10,000', '10 days', '["Illustrator", "Branding"]', 'Medium', 'Design', true)`
+    )
+    console.log('  ✓ Freelance Gigs')
+
+    // Micro Tasks
+    await pool.query(
+        `INSERT INTO micro_tasks (title, reward, time_est, category) VALUES
+        ('Survey Completion - Campus Food', 50, '5 min', 'Survey'),
+        ('Test Mobile App - FindMyRoom', 200, '30 min', 'App Testing'),
+        ('Transcribe Lecture Notes', 150, '20 min', 'Data Entry'),
+        ('Social Media Post Review', 30, '5 min', 'Review'),
+        ('Website Feedback - College Portal', 100, '15 min', 'Testing'),
+        ('Proofread Article - Tech Blog', 80, '10 min', 'Writing'),
+        ('Data Label Images - AI Dataset', 250, '45 min', 'Data Entry'),
+        ('Record Voice Sample', 120, '10 min', 'Audio')`
+    )
+    console.log('  ✓ Micro Tasks')
+
+    // Some pre-existing applications for demo
+    await pool.query(
+        `INSERT INTO career_applications (user_id, listing_id, listing_title, company, type, status, applied_at) VALUES
+        (1, 1, 'Frontend Developer Intern', 'TechCorp India', 'Internship', 'under_review', '2026-02-15 10:00:00'),
+        (1, 2, 'Data Science Intern', 'DataViz Inc', 'Internship', 'shortlisted', '2026-02-10 14:00:00'),
+        (1, 7, 'Build E-commerce Website', 'LocalMart', 'Freelance', 'accepted', '2026-02-08 09:00:00'),
+        (1, NULL, 'UI/UX Design Intern', 'DesignLab', 'Internship', 'rejected', '2026-01-28 11:00:00')`
+    )
+    // Some completed micro tasks
+    await pool.query(
+        `INSERT INTO task_completions (user_id, task_id, reward_earned) VALUES
+        (1, 3, 150),
+        (1, 6, 80)`
+    )
+    console.log('  ✓ Career Applications & Completions')
+
     console.log('🎉 Seed complete!')
     await pool.end()
 }

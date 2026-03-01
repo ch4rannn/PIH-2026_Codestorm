@@ -1,37 +1,64 @@
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
-import { Briefcase, MapPin, Clock, IndianRupee, Heart, Search, ExternalLink, Building2 } from 'lucide-react'
+import { Briefcase, MapPin, Clock, IndianRupee, Heart, Search, ExternalLink, Building2, Loader2, Check } from 'lucide-react'
+import api from '@/services/api'
 
-const mockInternships = [
-    { id: '1', title: 'Frontend Developer Intern', company: 'TechCorp India', location: 'Remote', stipend: '₹25,000/mo', domain: 'Web Development', duration: '3 months', verified: true, saved: false, status: 'open' },
-    { id: '2', title: 'Data Science Intern', company: 'DataViz Inc', location: 'Bangalore', stipend: '₹30,000/mo', domain: 'Data Science', duration: '6 months', verified: true, saved: true, status: 'open' },
-    { id: '3', title: 'UI/UX Design Intern', company: 'DesignLab', location: 'Hybrid - Delhi', stipend: '₹20,000/mo', domain: 'Design', duration: '4 months', verified: true, saved: false, status: 'open' },
-    { id: '4', title: 'Backend Engineer Intern', company: 'CloudStack', location: 'Remote', stipend: '₹28,000/mo', domain: 'Backend', duration: '6 months', verified: false, saved: false, status: 'open' },
-    { id: '5', title: 'ML Research Intern', company: 'AI Labs', location: 'Hyderabad', stipend: '₹35,000/mo', domain: 'AI/ML', duration: '3 months', verified: true, saved: false, status: 'open' },
-    { id: '6', title: 'App Developer Intern', company: 'MobileFirst', location: 'Remote', stipend: '₹22,000/mo', domain: 'Mobile Dev', duration: '4 months', verified: true, saved: false, status: 'open' },
-]
+interface Internship {
+    id: string; title: string; company: string; location: string; stipend: string; domain: string; duration: string; verified: boolean; applied: boolean
+}
 
 const domains = ['All', 'Web Development', 'Data Science', 'Design', 'Backend', 'AI/ML', 'Mobile Dev']
 const locationFilters = ['All', 'Remote', 'On-site', 'Hybrid']
 
 export default function InternshipsPage() {
+    const [internships, setInternships] = useState<Internship[]>([])
+    const [loading, setLoading] = useState(true)
     const [search, setSearch] = useState('')
     const [domainFilter, setDomainFilter] = useState('All')
     const [locationFilter, setLocationFilter] = useState('All')
-    const [savedJobs, setSavedJobs] = useState<string[]>(mockInternships.filter(j => j.saved).map(j => j.id))
+    const [savedJobs, setSavedJobs] = useState<string[]>([])
+    const [applying, setApplying] = useState<string | null>(null)
 
-    const filtered = mockInternships.filter(j => {
-        if (search && !j.title.toLowerCase().includes(search.toLowerCase()) && !j.company.toLowerCase().includes(search.toLowerCase())) return false
-        if (domainFilter !== 'All' && j.domain !== domainFilter) return false
-        if (locationFilter !== 'All' && !j.location.toLowerCase().includes(locationFilter.toLowerCase())) return false
-        return true
-    })
+    const loadData = useCallback(async () => {
+        try {
+            const params: Record<string, string> = {}
+            if (search) params.search = search
+            if (domainFilter !== 'All') params.domain = domainFilter
+            if (locationFilter !== 'All') params.location = locationFilter
+            const res = await api.get('/career/internships', { params })
+            setInternships(res.data)
+        } catch (err) {
+            console.error('Failed to load internships:', err)
+        } finally {
+            setLoading(false)
+        }
+    }, [search, domainFilter, locationFilter])
+
+    useEffect(() => { loadData() }, [loadData])
 
     const toggleSave = (id: string) => {
         setSavedJobs(prev => prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id])
+    }
+
+    const handleApply = async (id: string) => {
+        setApplying(id)
+        try {
+            await api.post(`/career/apply/${id}`)
+            await loadData()
+        } catch (err: unknown) {
+            const error = err as { response?: { status?: number } }
+            if (error.response?.status === 409) alert('Already applied!')
+            else console.error('Apply failed:', err)
+        } finally {
+            setApplying(null)
+        }
+    }
+
+    if (loading) {
+        return <div className="flex items-center justify-center h-64"><Loader2 className="w-8 h-8 animate-spin text-primary" /></div>
     }
 
     return (
@@ -41,10 +68,9 @@ export default function InternshipsPage() {
                     <h1 className="text-2xl font-bold">Internships</h1>
                     <p className="text-muted-foreground text-sm">Verified opportunities from top companies</p>
                 </div>
-                <Badge variant="outline">{filtered.length} opportunities</Badge>
+                <Badge variant="outline">{internships.length} opportunities</Badge>
             </div>
 
-            {/* Filters */}
             <Card>
                 <CardContent className="p-4">
                     <div className="flex flex-col sm:flex-row gap-3">
@@ -64,9 +90,8 @@ export default function InternshipsPage() {
                 </CardContent>
             </Card>
 
-            {/* Listings */}
             <div className="grid gap-4">
-                {filtered.map(job => (
+                {internships.map(job => (
                     <Card key={job.id} className="hover:shadow-md transition-shadow">
                         <CardContent className="p-5">
                             <div className="flex flex-col sm:flex-row gap-4">
@@ -93,14 +118,21 @@ export default function InternshipsPage() {
                                     </div>
                                     <div className="flex items-center justify-between mt-4">
                                         <Badge variant="secondary" className="text-xs">{job.domain}</Badge>
-                                        <Button size="sm">Apply Now <ExternalLink className="w-3 h-3 ml-1" /></Button>
+                                        {job.applied ? (
+                                            <Button size="sm" variant="outline" disabled><Check className="w-3 h-3 mr-1" />Applied</Button>
+                                        ) : (
+                                            <Button size="sm" onClick={() => handleApply(job.id)} disabled={applying === job.id}>
+                                                {applying === job.id ? <Loader2 className="w-3 h-3 mr-1 animate-spin" /> : <ExternalLink className="w-3 h-3 mr-1" />}
+                                                {applying === job.id ? 'Applying...' : 'Apply Now'}
+                                            </Button>
+                                        )}
                                     </div>
                                 </div>
                             </div>
                         </CardContent>
                     </Card>
                 ))}
-                {filtered.length === 0 && (
+                {internships.length === 0 && (
                     <Card><CardContent className="p-12 text-center text-muted-foreground">
                         <Briefcase className="w-12 h-12 mx-auto mb-3 opacity-20" />
                         <p className="font-medium">No internships found</p>

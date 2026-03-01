@@ -85,3 +85,57 @@ CREATE TABLE IF NOT EXISTS study_activity (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS career_listings (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(200) NOT NULL,
+    company VARCHAR(100) NOT NULL,
+    type ENUM('internship', 'freelance') NOT NULL,
+    location VARCHAR(100) DEFAULT 'Remote',
+    stipend VARCHAR(50),
+    budget VARCHAR(50),
+    domain VARCHAR(50),
+    duration VARCHAR(50),
+    deadline VARCHAR(50),
+    skills JSON,
+    difficulty ENUM('Easy', 'Medium', 'Hard') DEFAULT 'Medium',
+    verified BOOLEAN DEFAULT FALSE,
+    status ENUM('open', 'closed') DEFAULT 'open',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS career_applications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    listing_id INT,
+    listing_title VARCHAR(200) NOT NULL,
+    company VARCHAR(100) NOT NULL,
+    type ENUM('Internship', 'Freelance', 'Micro Task') NOT NULL,
+    status ENUM('under_review', 'shortlisted', 'accepted', 'rejected') DEFAULT 'under_review',
+    applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (listing_id) REFERENCES career_listings(id) ON DELETE SET NULL
+);
+
+CREATE TABLE IF NOT EXISTS micro_tasks (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(200) NOT NULL,
+    reward DECIMAL(10,2) NOT NULL,
+    time_est VARCHAR(20) NOT NULL,
+    category VARCHAR(50) NOT NULL,
+    description TEXT,
+    status ENUM('active', 'closed') DEFAULT 'active',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS task_completions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    task_id INT NOT NULL,
+    reward_earned DECIMAL(10,2) NOT NULL,
+    completed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (task_id) REFERENCES micro_tasks(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_completion (user_id, task_id)
+);
+

@@ -105,3 +105,27 @@ CREATE TABLE IF NOT EXISTS alumni_profiles (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
 );
+
+CREATE TABLE IF NOT EXISTS boost_feed (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    author_name VARCHAR(200) NOT NULL,
+    author_role VARCHAR(200) DEFAULT '',
+    author_company VARCHAR(200) DEFAULT '',
+    author_batch VARCHAR(10) DEFAULT '',
+    type ENUM('achievement', 'opportunity', 'update', 'article', 'milestone') NOT NULL DEFAULT 'update',
+    title VARCHAR(300) NOT NULL,
+    content TEXT NOT NULL,
+    tags JSON DEFAULT ('[]'),
+    likes_count INT DEFAULT 0,
+    comments_count INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS boost_feed_likes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    feed_id INT NOT NULL,
+    user_identifier VARCHAR(200) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (feed_id) REFERENCES boost_feed(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_like (feed_id, user_identifier)
+);

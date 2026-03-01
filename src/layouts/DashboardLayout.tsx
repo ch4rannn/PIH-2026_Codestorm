@@ -53,6 +53,7 @@ const menuConfig: Record<string, MenuItem[]> = {
         {
             label: 'Alumni Network', icon: Users, path: '/alumni', children: [
                 { label: 'Directory', path: '/alumni' },
+                { label: 'Boost Feed', path: '/alumni/feed' },
                 { label: 'Mentorship', path: '/alumni/mentorship' },
                 { label: 'Events', path: '/alumni/events' },
                 { label: 'Success Stories', path: '/alumni/stories' },
@@ -89,6 +90,7 @@ const menuConfig: Record<string, MenuItem[]> = {
         {
             label: 'Alumni Hub', icon: Users, path: '/alumni', children: [
                 { label: 'Directory', path: '/alumni' },
+                { label: 'Boost Feed', path: '/alumni/feed' },
                 { label: 'Mentorship', path: '/alumni/mentorship' },
                 { label: 'Events', path: '/alumni/events' },
                 { label: 'Donations', path: '/alumni/donations' },

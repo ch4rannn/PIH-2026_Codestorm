@@ -28,6 +28,7 @@ const AlumniEvents = lazy(() => import('@/pages/alumni/AlumniEvents'))
 const AlumniDonations = lazy(() => import('@/pages/alumni/AlumniDonations'))
 const AlumniSuccessStories = lazy(() => import('@/pages/alumni/AlumniSuccessStories'))
 const AlumniJobReferrals = lazy(() => import('@/pages/alumni/AlumniJobReferrals'))
+const AlumniBoostFeed = lazy(() => import('@/pages/alumni/AlumniBoostFeed'))
 
 // Study
 const PdfLibrary = lazy(() => import('@/pages/study/PdfLibrary'))
@@ -92,6 +93,7 @@ function AppRoutes() {
           <Route path="/alumni/donations" element={<AlumniDonations />} />
           <Route path="/alumni/stories" element={<AlumniSuccessStories />} />
           <Route path="/alumni/referrals" element={<AlumniJobReferrals />} />
+          <Route path="/alumni/feed" element={<AlumniBoostFeed />} />
 
           {/* Social */}
           <Route path="/social" element={<SocialFeed />} />

@@ -129,6 +129,18 @@ async function seed() {
     )
     console.log('  ✓ Alumni Profiles')
 
+    // Boost Feed
+    await pool.query(
+        `INSERT INTO boost_feed (author_name, author_role, author_company, author_batch, type, title, content, tags, likes_count) VALUES
+        ('Ankit Verma', 'SDE-2', 'Google', '2020', 'achievement', 'Promoted to SDE-2 at Google! 🎉', 'Thrilled to share that I have been promoted to SDE-2 at Google. The journey from campus to here has been incredible. Grateful for the mentors and batchmates who helped along the way. Keep pushing, juniors!', '["career","google","promotion"]', 24),
+        ('Priya Singh', 'Product Manager', 'Microsoft', '2019', 'opportunity', 'Hiring Interns at Microsoft — Apply Now!', 'My team at Microsoft is looking for talented interns for Summer 2026. Roles in PM, SDE, and Data Science. DM me or apply through the referral link. Happy to refer fellow students and alumni!', '["hiring","internship","microsoft"]', 18),
+        ('Vikram Joshi', 'DevOps Engineer', 'Netflix', '2018', 'article', 'How I Cracked Netflix — My Interview Journey', 'Writing about my interview experience at Netflix. 5 rounds, 3 weeks, and the most challenging system design problem I have ever faced. Here are my tips for anyone preparing...', '["interview","tips","netflix"]', 31),
+        ('Sneha Patel', 'UX Designer', 'Flipkart', '2020', 'update', 'Launched a new Design System at Flipkart', 'Excited to share that our team just shipped a brand new design system that will power all Flipkart apps. 300+ components, full dark mode support, and accessibility-first approach.', '["design","flipkart","launch"]', 15),
+        ('Deepak Gupta', 'CTO', 'HealthTech Startup', '2016', 'milestone', 'Our Startup Raised Series A — $5M! 🚀', 'Proud to announce that our HealthTech startup has raised $5M in Series A funding. From a college project to this — what a ride! Looking for talented engineers to join us.', '["startup","funding","hiring"]', 42),
+        ('Kavita Sharma', 'Backend Engineer', 'Razorpay', '2021', 'achievement', 'Open Source Contribution Milestone — 500 PRs', 'Hit 500 merged pull requests on open source projects this week! Most contributions to Node.js ecosystem tools. Open source has accelerated my growth like nothing else.', '["opensource","milestone","nodejs"]', 20)`
+    )
+    console.log('  ✓ Boost Feed')
+
     console.log('🎉 Seed complete!')
     await pool.end()
 }

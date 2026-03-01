@@ -2,7 +2,8 @@ import { cn } from "@/lib/utils"
 import { useRef, useEffect, useCallback, useState } from "react"
 import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Mail, Menu, SendHorizonal, X, GraduationCap, Users } from "lucide-react"
+import { ArrowRight, Mail, Menu, SendHorizonal, X, GraduationCap, Users, Moon, Sun } from "lucide-react"
+import { useTheme } from "@/context/ThemeContext"
 
 import { motion } from "framer-motion"
 
@@ -187,18 +188,25 @@ const Logo = ({ className }: { className?: string }) => (
 
 export default function HeroPage() {
     const [menuState, setMenuState] = useState(false)
+    const { theme, toggleTheme } = useTheme()
+
     return (
         <>
             <header>
                 <nav data-state={menuState && 'active'} className="group fixed z-20 w-full border-b border-dashed bg-white backdrop-blur md:relative dark:bg-zinc-950/50 lg:dark:bg-transparent">
-                    <div className="m-auto max-w-5xl px-6">
+                    <div className="mx-auto px-6 lg:px-12 xl:px-24 w-full">
                         <div className="flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
                             <div className="flex w-full justify-between lg:w-auto">
                                 <Link to="/" aria-label="home" className="flex items-center space-x-2"><Logo /></Link>
-                                <button onClick={() => setMenuState(!menuState)} aria-label={menuState ? 'Close Menu' : 'Open Menu'} className="relative z-20 -m-2.5 -mr-4 block cursor-pointer p-2.5 lg:hidden">
-                                    <Menu className="group-data-[state=active]:rotate-180 group-data-[state=active]:scale-0 group-data-[state=active]:opacity-0 m-auto size-6 duration-200" />
-                                    <X className="group-data-[state=active]:rotate-0 group-data-[state=active]:scale-100 group-data-[state=active]:opacity-100 absolute inset-0 m-auto size-6 -rotate-180 scale-0 opacity-0 duration-200" />
-                                </button>
+                                <div className="flex items-center gap-4 lg:hidden">
+                                    <button onClick={toggleTheme} className="text-muted-foreground hover:text-foreground">
+                                        {theme === 'dark' ? <Sun className="size-5" /> : <Moon className="size-5" />}
+                                    </button>
+                                    <button onClick={() => setMenuState(!menuState)} aria-label={menuState ? 'Close Menu' : 'Open Menu'} className="relative z-20 block cursor-pointer p-2.5">
+                                        <Menu className="group-data-[state=active]:rotate-180 group-data-[state=active]:scale-0 group-data-[state=active]:opacity-0 m-auto size-6 duration-200" />
+                                        <X className="group-data-[state=active]:rotate-0 group-data-[state=active]:scale-100 group-data-[state=active]:opacity-100 absolute inset-0 m-auto size-6 -rotate-180 scale-0 opacity-0 duration-200" />
+                                    </button>
+                                </div>
                             </div>
                             <div className="bg-background group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
                                 <div className="lg:pr-4">
@@ -208,9 +216,12 @@ export default function HeroPage() {
                                         ))}
                                     </ul>
                                 </div>
-                                <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit lg:border-l lg:pl-6">
-                                    <Button asChild variant="outline" size="sm"><Link to="/login"><span>Login</span></Link></Button>
-                                    <Button asChild size="sm"><Link to="/login"><span>Get Started</span></Link></Button>
+                                <div className="flex w-full items-center flex-col space-y-3 sm:flex-row sm:gap-4 sm:space-y-0 md:w-fit lg:border-l lg:pl-6">
+                                    <button onClick={toggleTheme} className="hidden lg:flex text-muted-foreground hover:text-foreground">
+                                        {theme === 'dark' ? <Sun className="size-5" /> : <Moon className="size-5" />}
+                                    </button>
+                                    <Button asChild variant="outline" size="sm" className="w-full sm:w-auto"><Link to="/login"><span>Login</span></Link></Button>
+                                    <Button asChild size="sm" className="w-full sm:w-auto"><Link to="/login"><span>Get Started</span></Link></Button>
                                 </div>
                             </div>
                         </div>
@@ -220,13 +231,13 @@ export default function HeroPage() {
 
             <main>
                 <section className="overflow-hidden min-h-screen flex items-center justify-center pt-24 lg:pt-0">
-                    <div className="relative mx-auto max-w-5xl px-6 w-full">
-                        <div className="lg:flex lg:items-center lg:gap-12">
+                    <div className="relative mx-auto px-6 lg:px-12 xl:px-24 w-full">
+                        <div className="lg:flex lg:items-center lg:gap-12 lg:justify-between">
                             <motion.div
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.6 }}
-                                className="relative z-10 mx-auto max-w-xl text-center lg:ml-0 lg:w-1/2 lg:text-left"
+                                className="relative z-10 mx-auto max-w-2xl text-center lg:ml-0 lg:w-1/2 lg:text-left"
                             >
                                 <Link to="/" className="rounded-lg mx-auto flex w-fit items-center gap-2 border p-1 pr-3 lg:ml-0">
                                     <span className="bg-muted rounded-[calc(var(--radius)-0.25rem)] px-2 py-1 text-xs">New</span>
@@ -234,71 +245,121 @@ export default function HeroPage() {
                                     <span className="bg-border block h-4 w-px"></span>
                                     <ArrowRight className="size-4" />
                                 </Link>
-                                <h1 className="mt-10 text-balance text-4xl font-bold md:text-5xl xl:text-5xl">Your Complete University Ecosystem in One Platform</h1>
-                                <p className="mt-8 text-muted-foreground">Academics, career growth, alumni networking, smart study tools, and social engagement — all seamlessly connected for your university journey.</p>
-                                <div>
-                                    <form action="" className="mx-auto my-10 max-w-sm lg:my-12 lg:ml-0 lg:mr-auto">
-                                        <div className="bg-background has-[input:focus]:ring-muted relative grid grid-cols-[1fr_auto] items-center rounded-[1rem] border pr-1 shadow shadow-zinc-950/5 has-[input:focus]:ring-2">
-                                            <Mail className="text-muted-foreground pointer-events-none absolute inset-y-0 left-5 my-auto size-5" />
-                                            <input placeholder="Your university email" className="h-14 w-full bg-transparent pl-12 focus:outline-none" type="email" />
-                                            <div className="md:pr-1.5 lg:pr-0">
-                                                <Button aria-label="submit">
-                                                    <span className="hidden md:block">Get Started</span>
-                                                    <SendHorizonal className="relative mx-auto size-5 md:hidden" strokeWidth={2} />
-                                                </Button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                    <ul className="list-inside list-disc space-y-2 text-muted-foreground transition-all">
-                                        <li>Smart Academic Tracking</li>
-                                        <li>Career & Earning Hub</li>
-                                        <li>AI-Powered Study Tools</li>
-                                    </ul>
+                                <h1 className="mt-10 text-balance text-4xl font-bold md:text-5xl xl:text-6xl">
+                                    Master Your Studies, Accelerate Your Career, and <span className="text-primary text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">Earn While You Learn</span>
+                                </h1>
+                                <p className="mt-8 text-muted-foreground text-lg xl:text-xl">
+                                    Your all-in-one university ecosystem. Seamlessly connect academics, career growth, alumni networking, and AI study tools.
+                                </p>
+                                <div className="mt-10 flex flex-wrap gap-4 justify-center lg:justify-start">
+                                    <Button size="lg" className="rounded-full relative group overflow-hidden" asChild>
+                                        <Link to="/login">
+                                            <span className="relative z-10 flex items-center gap-2">Enter Portal <ArrowRight className="size-4 group-hover:translate-x-1 duration-200" /></span>
+                                            <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out"></div>
+                                        </Link>
+                                    </Button>
+                                    <Button size="lg" variant="outline" className="rounded-full hover:bg-muted" asChild>
+                                        <a href="#features">Explore Features</a>
+                                    </Button>
                                 </div>
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.4, duration: 0.6 }}
+                                    className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4 text-left border-t pt-8 dark:border-zinc-800"
+                                >
+                                    {[
+                                        { stat: '10k+', label: 'Students' },
+                                        { stat: '500+', label: 'Faculty' },
+                                        { stat: '1k+', label: 'Mentors' },
+                                        { stat: '99%', label: 'Uptime' },
+                                    ].map((s, i) => (
+                                        <div key={i}>
+                                            <div className="text-2xl font-bold text-foreground">{s.stat}</div>
+                                            <div className="text-sm text-muted-foreground">{s.label}</div>
+                                        </div>
+                                    ))}
+                                </motion.div>
                             </motion.div>
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 0.8, delay: 0.2 }}
-                                className="hidden lg:flex lg:w-1/2 lg:justify-center"
+                                className="hidden lg:flex lg:w-1/2 lg:justify-center relative"
                             >
-                                <Globe size={500} />
+                                <motion.div
+                                    animate={{
+                                        boxShadow: ["0px 0px 0px rgba(59, 130, 246, 0)", "0px 0px 80px rgba(59, 130, 246, 0.2)", "0px 0px 0px rgba(59, 130, 246, 0)"],
+                                    }}
+                                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                                    className="rounded-full"
+                                >
+                                    <Globe size={500} />
+                                </motion.div>
+
+                                {/* Floating Tags */}
+                                {[
+                                    { text: "Internships", top: "10%", left: "10%", delay: 0 },
+                                    { text: "Study Tools", top: "20%", right: "5%", delay: 0.2 },
+                                    { text: "Alumni Network", bottom: "25%", left: "5%", delay: 0.4 },
+                                    { text: "Social Feed", bottom: "15%", right: "15%", delay: 0.6 },
+                                    { text: "Earning Hub", top: "50%", right: "-5%", delay: 0.8 },
+                                ].map((tag, i) => (
+                                    <motion.div
+                                        key={i}
+                                        initial={{ opacity: 0, scale: 0.8 }}
+                                        animate={{ opacity: 1, scale: 1, y: [0, -10, 0] }}
+                                        transition={{
+                                            opacity: { delay: tag.delay + 0.5, duration: 0.5 },
+                                            scale: { delay: tag.delay + 0.5, duration: 0.5 },
+                                            y: { duration: 4, repeat: Infinity, delay: tag.delay, ease: "easeInOut" }
+                                        }}
+                                        className="absolute bg-background/80 backdrop-blur-md border border-border px-3 py-1.5 rounded-full text-sm font-medium text-foreground shadow-lg flex items-center gap-2"
+                                        style={{ top: tag.top, left: tag.left, right: tag.right, bottom: tag.bottom }}
+                                    >
+                                        <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+                                        {tag.text}
+                                    </motion.div>
+                                ))}
                             </motion.div>
                         </div>
                     </div>
                 </section>
 
                 {/* Features Section */}
-                <section id="features" className="py-24 bg-muted/30">
-                    <div className="max-w-5xl mx-auto px-6">
+                <section id="features" className="py-32 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-primary/5 dark:bg-primary/10 [mask-image:radial-gradient(ellipse_at_center,black,transparent_80%)]"></div>
+                    <div className="mx-auto px-6 lg:px-12 xl:px-24 w-full relative z-10">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-100px" }}
-                            className="text-center mb-16"
+                            className="text-center mb-20"
                         >
-                            <h2 className="text-3xl lg:text-4xl font-bold mb-4">Why Choose UIMS 2.0?</h2>
+                            <h2 className="text-3xl lg:text-5xl font-bold mb-6 tracking-tight">Why Choose UIMS 2.0?</h2>
                             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Enhance your university experience with smart, AI-driven tools that keep you ahead of the curve.</p>
                         </motion.div>
                         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
                             {[
-                                { title: 'Unified Experience', desc: 'All your academic and career needs accessible from a single, intuitive dashboard.', icon: <Menu className="w-6 h-6 text-primary" /> },
-                                { title: 'Smart Analytics', desc: 'Track your CGPA, attendance, and engagement with beautiful, real-time charts.', icon: <SendHorizonal className="w-6 h-6 text-primary" /> },
-                                { title: 'Role-Based Access', desc: 'Personalized views and permissions for students, faculty, alumni, and admins.', icon: <Users className="w-6 h-6 text-primary" /> },
+                                { title: 'Unified Experience', desc: 'All your academic and career needs seamlessly accessible from a single, intuitive dashboard.', icon: <Menu className="w-6 h-6 text-primary group-hover:animate-pulse" /> },
+                                { title: 'Smart Analytics', desc: 'Track your CGPA, attendance, and engagement with beautiful, real-time interactive charts.', icon: <SendHorizonal className="w-6 h-6 text-primary group-hover:-translate-y-1 transition-transform" /> },
+                                { title: 'Role-Based Access', desc: 'Personalized views and precision permissions for students, faculty, alumni, and admins.', icon: <Users className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" /> },
                             ].map((feature, i) => (
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true, margin: "-50px" }}
                                     transition={{ delay: i * 0.1 }}
+                                    whileHover={{ y: -8, scale: 1.02 }}
                                     key={i}
-                                    className="bg-background rounded-2xl p-6 border shadow-sm hover:shadow-md transition-shadow"
+                                    className="group relative bg-background/60 backdrop-blur-xl rounded-3xl p-8 border border-white/10 shadow-lg hover:shadow-primary/25 hover:border-primary/50 transition-all duration-300"
                                 >
-                                    <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+                                    <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-3xl pointer-events-none"></div>
+                                    <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-8 shadow-inner shadow-primary/20">
                                         {feature.icon}
                                     </div>
-                                    <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
-                                    <p className="text-muted-foreground">{feature.desc}</p>
+                                    <h3 className="text-2xl font-bold mb-4 tracking-tight">{feature.title}</h3>
+                                    <p className="text-muted-foreground leading-relaxed">{feature.desc}</p>
                                 </motion.div>
                             ))}
                         </div>
@@ -306,40 +367,147 @@ export default function HeroPage() {
                 </section>
 
                 {/* Modules Section */}
-                <section id="modules" className="py-24">
-                    <div className="max-w-5xl mx-auto px-6">
+                <section id="modules" className="py-32 bg-muted/30 relative">
+                    <div className="mx-auto px-6 lg:px-12 xl:px-24 w-full">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-100px" }}
+                            className="text-center mb-20"
+                        >
+                            <h2 className="text-3xl lg:text-5xl font-bold mb-6 tracking-tight">Core Modules</h2>
+                            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Explore the powerful modules built into the University Smart Portal.</p>
+                        </motion.div>
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {[
+                                { title: 'Academics Core', desc: 'Track attendance, view results, submit assignments, and manage fee payments. Get AI-powered insights on your performance.' },
+                                { title: 'Career & Earning Hub', desc: 'Find internships, freelance gigs, and micro-tasks precisely tailored to your unique skill set and major.' },
+                                { title: 'Smart Study System', desc: 'Upload PDFs, generate flashcards automatically, and track your study streak and mastery with built-in spaced repetition.' },
+                                { title: 'Alumni Network', desc: 'Connect with successful alumni for 1-on-1 mentorship, job referrals, and career guidance.' },
+                                { title: 'Social Feed', desc: 'Stay perfectly updated with university events, announcements, club activities, and student achievements.' },
+                                { title: 'Admin Controls', desc: 'Comprehensive dashboards for administrators to manage users, verify content, and oversee the entire ecosystem.' },
+                            ].map((module, i) => (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, margin: "-50px" }}
+                                    transition={{ delay: i * 0.05 }}
+                                    whileHover={{ scale: 1.03 }}
+                                    key={i}
+                                    className="group relative flex flex-col justify-between p-8 rounded-3xl border border-border/50 bg-background/50 hover:bg-background/80 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300 overflow-hidden"
+                                >
+                                    <div>
+                                        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mb-6 group-hover:scale-110 group-hover:bg-primary/20 transition-all">
+                                            <ArrowRight className="w-5 h-5 text-primary group-hover:rotate-45 transition-transform" />
+                                        </div>
+                                        <h3 className="text-xl font-bold mb-3 tracking-tight">{module.title}</h3>
+                                        <p className="text-muted-foreground mb-6 line-clamp-3 group-hover:line-clamp-none transition-all">{module.desc}</p>
+                                    </div>
+                                    <div className="mt-auto pt-6 border-t border-border/50 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <Button variant="ghost" className="w-full justify-between hover:bg-primary/10 hover:text-primary">
+                                            View Module <ArrowRight className="w-4 h-4 ml-2" />
+                                        </Button>
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* Platform Preview Section */}
+                <section id="preview" className="py-32 overflow-hidden relative">
+                    <div className="absolute inset-0 bg-primary/5 dark:bg-primary/10 [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]"></div>
+                    <div className="mx-auto px-6 lg:px-12 xl:px-24 w-full relative z-10">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-100px" }}
                             className="text-center mb-16"
                         >
-                            <h2 className="text-3xl lg:text-4xl font-bold mb-4">Core Modules</h2>
-                            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Explore the powerful modules built into the University Smart Portal.</p>
+                            <h2 className="text-3xl lg:text-5xl font-bold mb-6 tracking-tight">Experience the Platform</h2>
+                            <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-10">Get a glimpse of the unified dashboard tailored for every role.</p>
+
+                            <div className="flex justify-center gap-2 mb-12">
+                                {['Student', 'Faculty', 'Admin'].map((role, i) => (
+                                    <button key={i} className={cn("px-6 py-2.5 rounded-full text-sm font-medium transition-all", i === 0 ? "bg-primary text-primary-foreground shadow-md shadow-primary/20" : "bg-muted text-muted-foreground hover:bg-muted/80")}>
+                                        {role} View
+                                    </button>
+                                ))}
+                            </div>
                         </motion.div>
-                        <div className="grid md:grid-cols-2 gap-6">
-                            {[
-                                { title: 'Academics Core', desc: 'Track attendance, view results, submit assignments, and manage fee payments.' },
-                                { title: 'Career & Earning Hub', desc: 'Find internships, freelance gigs, and micro-tasks tailored to your skills.' },
-                                { title: 'Smart Study System', desc: 'Upload PDFs, generate flashcards, and track your study streak and mastery.' },
-                                { title: 'Alumni Network', desc: 'Connect with successful alumni for mentorship, referrals, and guidance.' },
-                                { title: 'Social Feed', desc: 'Stay updated with university events, announcements, and student achievements.' },
-                                { title: 'Admin Controls', desc: 'Comprehensive dashboards for administrators to manage users and verify content.' },
-                            ].map((module, i) => (
-                                <motion.div
-                                    initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    viewport={{ once: true, margin: "-50px" }}
-                                    transition={{ delay: i * 0.05 }}
-                                    key={i}
-                                    className="flex gap-4 p-6 rounded-2xl border hover:border-primary/50 transition-colors"
-                                >
-                                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-1">
-                                        <ArrowRight className="w-4 h-4 text-primary" />
+
+                        <motion.div
+                            initial={{ opacity: 0, y: 40 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-100px" }}
+                            className="mx-auto max-w-5xl rounded-t-2xl border-t border-l border-r border-border/50 bg-background shadow-2xl overflow-hidden"
+                        >
+                            <div className="flex items-center gap-2 px-4 py-3 bg-muted/50 border-b border-border/50">
+                                <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
+                                <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                                <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
+                            </div>
+                            <div className="aspect-[16/9] bg-zinc-100 dark:bg-zinc-900/50 p-8">
+                                {/* Dummy Dashboard UI */}
+                                <div className="grid grid-cols-4 gap-6 h-full">
+                                    <div className="col-span-1 flex flex-col gap-4">
+                                        <div className="h-10 bg-background rounded-lg border border-border"></div>
+                                        <div className="h-full bg-background rounded-lg border border-border"></div>
                                     </div>
-                                    <div>
-                                        <h3 className="text-lg font-semibold mb-2">{module.title}</h3>
-                                        <p className="text-muted-foreground">{module.desc}</p>
+                                    <div className="col-span-3 flex flex-col gap-6">
+                                        <div className="grid grid-cols-3 gap-6">
+                                            <div className="h-24 bg-background rounded-2xl border border-border shadow-sm"></div>
+                                            <div className="h-24 bg-background rounded-2xl border border-border shadow-sm"></div>
+                                            <div className="h-24 bg-background rounded-2xl border border-border shadow-sm"></div>
+                                        </div>
+                                        <div className="grid grid-cols-3 gap-6 h-full">
+                                            <div className="col-span-2 bg-background rounded-2xl border border-border shadow-sm"></div>
+                                            <div className="col-span-1 bg-background rounded-2xl border border-border shadow-sm"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+                </section>
+
+                {/* Social Proof Section */}
+                <section id="testimonials" className="py-32 bg-muted/30">
+                    <div className="mx-auto px-6 lg:px-12 xl:px-24 w-full">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-100px" }}
+                            className="text-center mb-20"
+                        >
+                            <h2 className="text-3xl lg:text-5xl font-bold mb-6 tracking-tight">Loved by the Campus</h2>
+                            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">See what our students and alumni have to say about UIMS 2.0.</p>
+                        </motion.div>
+
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {[
+                                { name: "Sarah J.", role: "Computer Science '25", text: "The Smart Study System completely changed my prep. Generating flashcards from my lecture PDFs saved me hundreds of hours." },
+                                { name: "David M.", role: "Alumni Mentor", text: "I love being able to connect with current students and refer them to roles at my company. The alumni directory is incredibly well-built." },
+                                { name: "Prof. Alan T.", role: "Faculty, Engineering", text: "Having attendance, grading, and assignments all unified in one seamless interface makes my administrative work so much easier." },
+                            ].map((review, i) => (
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
+                                    viewport={{ once: true, margin: "-50px" }}
+                                    transition={{ delay: i * 0.1 }}
+                                    key={i}
+                                    className="bg-background rounded-3xl p-8 border border-border shadow-sm relative"
+                                >
+                                    <div className="flex text-yellow-500 mb-6 gap-1">
+                                        {[1, 2, 3, 4, 5].map(star => <svg key={star} className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>)}
+                                    </div>
+                                    <p className="text-muted-foreground text-lg italic mb-8">"{review.text}"</p>
+                                    <div className="flex items-center gap-4 mt-auto">
+                                        <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-lg">{review.name.charAt(0)}</div>
+                                        <div>
+                                            <div className="font-bold text-foreground">{review.name}</div>
+                                            <div className="text-sm text-muted-foreground">{review.role}</div>
+                                        </div>
                                     </div>
                                 </motion.div>
                             ))}
@@ -348,51 +516,27 @@ export default function HeroPage() {
                 </section>
 
                 {/* About Section */}
-                <section id="about" className="py-24 bg-zinc-950 text-zinc-50 dark:bg-zinc-900/40 border-y">
-                    <div className="max-w-5xl mx-auto px-6 lg:flex items-center gap-12">
+                <section id="about" className="py-24 bg-background border-y">
+                    <div className="mx-auto px-6 lg:px-12 xl:px-24 w-full text-center max-w-4xl">
                         <motion.div
-                            initial={{ opacity: 0, x: -30 }}
-                            whileInView={{ opacity: 1, x: 0 }}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-100px" }}
-                            className="lg:w-1/2 mb-10 lg:mb-0"
                         >
-                            <h2 className="text-3xl lg:text-4xl font-bold mb-6 text-white">About the Portal</h2>
-                            <p className="text-zinc-400 text-lg leading-relaxed mb-6">
-                                UIMS 2.0 is designed to bridge the gap between academic learning and career readiness. We realized that students needed more than just a place to check their grades — they needed an ecosystem.
+                            <h2 className="text-3xl lg:text-4xl font-bold mb-6">About the Portal</h2>
+                            <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+                                UIMS 2.0 is designed to bridge the gap between academic learning and career readiness. We realized that students needed more than just a place to check their grades — they needed a complete ecosystem.
                             </p>
-                            <p className="text-zinc-400 text-lg leading-relaxed mb-8">
-                                Built with modern web technologies, our portal ensures a seamless, fast, and engaging experience for everyone on campus.
-                            </p>
-                            <Button variant="secondary" size="lg" className="bg-white text-black hover:bg-zinc-200" asChild>
-                                <Link to="/login">Join the Platform</Link>
+                            <Button variant="default" size="lg" className="mt-4 rounded-full" asChild>
+                                <Link to="/login">Join the Platform Today</Link>
                             </Button>
                         </motion.div>
-                        <div className="lg:w-1/2 grid grid-cols-2 gap-4">
-                            {[
-                                { stat: '10k+', label: 'Active Students' },
-                                { stat: '500+', label: 'Faculty Members' },
-                                { stat: '1k+', label: 'Alumni Mentors' },
-                                { stat: '99%', label: 'Uptime' },
-                            ].map((item, i) => (
-                                <motion.div
-                                    initial={{ opacity: 0, scale: 0.9 }}
-                                    whileInView={{ opacity: 1, scale: 1 }}
-                                    viewport={{ once: true, margin: "-50px" }}
-                                    transition={{ delay: i * 0.1 }}
-                                    key={i}
-                                    className="bg-white/5 p-6 rounded-2xl text-center backdrop-blur-sm border border-white/10"
-                                >
-                                    <div className="text-3xl font-bold mb-2 text-white">{item.stat}</div>
-                                    <div className="text-sm text-zinc-400">{item.label}</div>
-                                </motion.div>
-                            ))}
-                        </div>
                     </div>
                 </section>
 
                 {/* Contact Section */}
                 <section id="contact" className="py-24">
-                    <div className="max-w-3xl mx-auto px-6 text-center">
+                    <div className="mx-auto px-6 lg:px-12 xl:px-24 w-full text-center">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}

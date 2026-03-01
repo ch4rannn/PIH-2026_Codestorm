@@ -4,22 +4,9 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-<<<<<<< HEAD
 import { Search, Users, Building2, Calendar, MessageCircle, Share2, Linkedin, MapPin, Briefcase, Loader2, UserPlus } from 'lucide-react'
 import { getAlumni, type AlumniData, type AlumniListResponse } from '@/services/alumniService'
 import AlumniRegisterForm from './AlumniRegisterForm'
-=======
-import { Search, MessageCircle, Share2 } from 'lucide-react'
-
-const alumni = [
-    { id: '1', name: 'Ankit Verma', role: 'SDE-2', company: 'Google', batch: '2020', experience: '4 yrs', skills: ['React', 'Go', 'K8s'], available: true },
-    { id: '2', name: 'Priya Singh', role: 'Product Manager', company: 'Microsoft', batch: '2019', experience: '5 yrs', skills: ['Agile', 'Data', 'Strategy'], available: true },
-    { id: '3', name: 'Rohit Mehta', role: 'Data Scientist', company: 'Amazon', batch: '2021', experience: '3 yrs', skills: ['Python', 'ML', 'SQL'], available: false },
-    { id: '4', name: 'Sneha Patel', role: 'UX Designer', company: 'Flipkart', batch: '2020', experience: '4 yrs', skills: ['Figma', 'Research', 'Design'], available: true },
-    { id: '5', name: 'Vikram Joshi', role: 'DevOps Engineer', company: 'Netflix', batch: '2018', experience: '6 yrs', skills: ['AWS', 'Docker', 'CI/CD'], available: true },
-    { id: '6', name: 'Meera Reddy', role: 'ML Engineer', company: 'Meta', batch: '2019', experience: '5 yrs', skills: ['PyTorch', 'NLP', 'CV'], available: false },
-]
->>>>>>> origin/develop
 
 export default function AlumniDirectory() {
     const [search, setSearch] = useState('')

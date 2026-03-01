@@ -6,6 +6,7 @@ import dotenv from 'dotenv'
 import authRoutes from './routes/auth.js'
 import academicRoutes from './routes/academic.js'
 import noticeRoutes from './routes/notices.js'
+import alumniRoutes from './routes/alumni.js'
 
 dotenv.config()
 
@@ -23,6 +24,7 @@ app.use(morgan('dev'))
 app.use('/api/auth', authRoutes)
 app.use('/api/academic', academicRoutes)
 app.use('/api/academic/notices', noticeRoutes)
+app.use('/api/alumni', alumniRoutes)
 
 // Health check
 app.get('/api/health', (_req, res) => {

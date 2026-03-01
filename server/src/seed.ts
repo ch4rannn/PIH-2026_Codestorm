@@ -114,6 +114,21 @@ async function seed() {
     )
     console.log('  ✓ Notices')
 
+    // Alumni Profiles
+    await pool.query(
+        `INSERT INTO alumni_profiles (user_id, name, email, role, company, batch, department, location, experience, industry, skills, available, linkedin) VALUES
+        (4, 'Ankit Verma', 'ankit@alumni.edu', 'SDE-2', 'Google', '2020', 'CS', 'Bangalore', '4 yrs', 'Technology', '["React","Go","K8s"]', true, 'https://linkedin.com/in/ankitverma'),
+        (NULL, 'Priya Singh', 'priya.singh@alumni.edu', 'Product Manager', 'Microsoft', '2019', 'CS', 'Hyderabad', '5 yrs', 'Technology', '["Agile","Data","Strategy"]', true, 'https://linkedin.com/in/priyasingh'),
+        (NULL, 'Rohit Mehta', 'rohit.mehta@alumni.edu', 'Data Scientist', 'Amazon', '2021', 'IT', 'Bangalore', '3 yrs', 'Technology', '["Python","ML","SQL"]', false, 'https://linkedin.com/in/rohitmehta'),
+        (NULL, 'Sneha Patel', 'sneha.patel@alumni.edu', 'UX Designer', 'Flipkart', '2020', 'CS', 'Bangalore', '4 yrs', 'E-Commerce', '["Figma","Research","Design"]', true, 'https://linkedin.com/in/snehapatel'),
+        (NULL, 'Vikram Joshi', 'vikram.joshi@alumni.edu', 'DevOps Engineer', 'Netflix', '2018', 'CS', 'Remote', '6 yrs', 'Entertainment', '["AWS","Docker","CI/CD"]', true, 'https://linkedin.com/in/vikramjoshi'),
+        (NULL, 'Meera Reddy', 'meera.reddy@alumni.edu', 'ML Engineer', 'Meta', '2019', 'ECE', 'Menlo Park', '5 yrs', 'Technology', '["PyTorch","NLP","CV"]', false, 'https://linkedin.com/in/meerareddy'),
+        (NULL, 'Arjun Nair', 'arjun.nair@alumni.edu', 'Consultant', 'McKinsey', '2017', 'MBA', 'Mumbai', '7 yrs', 'Consulting', '["Strategy","Analytics","Leadership"]', true, 'https://linkedin.com/in/arjunnair'),
+        (NULL, 'Kavita Sharma', 'kavita.sharma@alumni.edu', 'Backend Engineer', 'Razorpay', '2021', 'CS', 'Bangalore', '3 yrs', 'FinTech', '["Node.js","PostgreSQL","Redis"]', true, 'https://linkedin.com/in/kavitasharma'),
+        (NULL, 'Deepak Gupta', 'deepak.gupta@alumni.edu', 'CTO', 'HealthTech Startup', '2016', 'IT', 'Delhi', '8 yrs', 'Healthcare', '["Architecture","Cloud","Team Lead"]', false, 'https://linkedin.com/in/deepakgupta')`
+    )
+    console.log('  ✓ Alumni Profiles')
+
     console.log('🎉 Seed complete!')
     await pool.end()
 }

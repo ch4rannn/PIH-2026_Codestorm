@@ -8,6 +8,8 @@ import academicRoutes from './routes/academic.js'
 import noticeRoutes from './routes/notices.js'
 import alumniRoutes from './routes/alumni.js'
 import feedRoutes from './routes/feed.js'
+import careerRoutes from './routes/career.js'
+import adminRoutes from './routes/admin.js'
 
 dotenv.config()
 
@@ -27,6 +29,8 @@ app.use('/api/academic', academicRoutes)
 app.use('/api/academic/notices', noticeRoutes)
 app.use('/api/alumni', alumniRoutes)
 app.use('/api/feed', feedRoutes)
+app.use('/api/career', careerRoutes)
+app.use('/api/admin', adminRoutes)
 
 // Health check
 app.get('/api/health', (_req, res) => {

@@ -1,20 +1,58 @@
+import { useState, useEffect, useCallback } from 'react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Clock, IndianRupee, CheckCircle2 } from 'lucide-react'
+import { Clock, IndianRupee, CheckCircle2, Loader2, Zap } from 'lucide-react'
+import api from '@/services/api'
 
-const microTasks = [
-    { id: '1', title: 'Survey Completion - Campus Food', reward: '₹50', time: '5 min', category: 'Survey', completed: false },
-    { id: '2', title: 'Test Mobile App - FindMyRoom', reward: '₹200', time: '30 min', category: 'App Testing', completed: false },
-    { id: '3', title: 'Transcribe Lecture Notes', reward: '₹150', time: '20 min', category: 'Data Entry', completed: true },
-    { id: '4', title: 'Social Media Post Review', reward: '₹30', time: '5 min', category: 'Review', completed: false },
-    { id: '5', title: 'Website Feedback - College Portal', reward: '₹100', time: '15 min', category: 'Testing', completed: false },
-    { id: '6', title: 'Proofread Article - Tech Blog', reward: '₹80', time: '10 min', category: 'Writing', completed: true },
-    { id: '7', title: 'Data Label Images - AI Dataset', reward: '₹250', time: '45 min', category: 'Data Entry', completed: false },
-    { id: '8', title: 'Record Voice Sample', reward: '₹120', time: '10 min', category: 'Audio', completed: false },
-]
+interface MicroTask {
+    id: string; title: string; reward: number; rewardStr: string; time: string; category: string; completed: boolean
+}
+
+const categories = ['All', 'Survey', 'App Testing', 'Data Entry', 'Review', 'Testing', 'Writing', 'Audio']
 
 export default function MicroTasksPage() {
+    const [tasks, setTasks] = useState<MicroTask[]>([])
+    const [totalEarned, setTotalEarned] = useState(0)
+    const [loading, setLoading] = useState(true)
+    const [completing, setCompleting] = useState<string | null>(null)
+    const [category, setCategory] = useState('All')
+
+    const loadData = useCallback(async () => {
+        try {
+            const params: Record<string, string> = {}
+            if (category !== 'All') params.category = category
+            const res = await api.get('/career/microtasks', { params })
+            setTasks(res.data.tasks)
+            setTotalEarned(res.data.totalEarned)
+        } catch (err) {
+            console.error('Failed to load tasks:', err)
+        } finally {
+            setLoading(false)
+        }
+    }, [category])
+
+    useEffect(() => { loadData() }, [loadData])
+
+    const handleComplete = async (id: string) => {
+        setCompleting(id)
+        try {
+            const res = await api.post(`/career/microtasks/${id}/complete`)
+            setTotalEarned(prev => prev + res.data.reward)
+            await loadData()
+        } catch (err: unknown) {
+            const error = err as { response?: { status?: number } }
+            if (error.response?.status === 409) alert('Already completed!')
+            else console.error('Complete failed:', err)
+        } finally {
+            setCompleting(null)
+        }
+    }
+
+    if (loading) {
+        return <div className="flex items-center justify-center h-64"><Loader2 className="w-8 h-8 animate-spin text-primary" /></div>
+    }
+
     return (
         <div className="space-y-6">
             <div className="flex items-center justify-between">
@@ -22,10 +60,18 @@ export default function MicroTasksPage() {
                     <h1 className="text-2xl font-bold">Micro Tasks</h1>
                     <p className="text-muted-foreground text-sm">Quick tasks, instant rewards</p>
                 </div>
-                <Badge variant="outline" className="text-sm">💰 Earned: ₹230</Badge>
+                <Badge variant="outline" className="text-sm">💰 Earned: ₹{totalEarned.toLocaleString()}</Badge>
             </div>
+
+            {/* Category Filter */}
+            <div className="flex gap-2 flex-wrap">
+                {categories.map(c => (
+                    <Badge key={c} variant={category === c ? 'default' : 'outline'} className="cursor-pointer" onClick={() => setCategory(c)}>{c}</Badge>
+                ))}
+            </div>
+
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                {microTasks.map(task => (
+                {tasks.map(task => (
                     <Card key={task.id} className={`hover:shadow-md transition-all ${task.completed ? 'opacity-60' : 'hover:-translate-y-0.5'}`}>
                         <CardContent className="p-4">
                             <div className="flex items-center justify-between mb-2">
@@ -34,12 +80,17 @@ export default function MicroTasksPage() {
                             </div>
                             <h3 className="font-medium text-sm mb-3">{task.title}</h3>
                             <div className="flex items-center gap-3 text-xs text-muted-foreground mb-3">
-                                <span className="flex items-center gap-1"><IndianRupee className="w-3 h-3" />{task.reward}</span>
+                                <span className="flex items-center gap-1"><IndianRupee className="w-3 h-3" />{task.rewardStr}</span>
                                 <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{task.time}</span>
                             </div>
-                            <Button size="sm" variant={task.completed ? 'outline' : 'default'} className="w-full" disabled={task.completed}>
-                                {task.completed ? 'Completed' : 'Start Task'}
-                            </Button>
+                            {task.completed ? (
+                                <Button size="sm" variant="outline" className="w-full" disabled>Completed</Button>
+                            ) : (
+                                <Button size="sm" className="w-full" onClick={() => handleComplete(task.id)} disabled={completing === task.id}>
+                                    {completing === task.id ? <Loader2 className="w-3 h-3 mr-1 animate-spin" /> : <Zap className="w-3 h-3 mr-1" />}
+                                    {completing === task.id ? 'Completing...' : 'Start Task'}
+                                </Button>
+                            )}
                         </CardContent>
                     </Card>
                 ))}

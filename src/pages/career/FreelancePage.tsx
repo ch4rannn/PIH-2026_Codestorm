@@ -1,7 +1,7 @@
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Globe, Code, Palette, FileText, Smartphone, TestTube2, DollarSign, Clock, Star } from 'lucide-react'
+import { DollarSign, Clock } from 'lucide-react'
 
 const freelanceGigs = [
     { id: '1', title: 'Build E-commerce Website', client: 'LocalMart', budget: '₹15,000', deadline: '2 weeks', skills: ['React', 'Node.js'], difficulty: 'Medium', category: 'Web Development' },

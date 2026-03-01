@@ -1,6 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Bell, Calendar, Megaphone, AlertCircle } from 'lucide-react'
+import { Bell, Calendar, AlertCircle } from 'lucide-react'
 
 const notices = [
     { id: '1', title: 'Mid-Semester Exam Schedule Released', content: 'Mid-semester examinations will begin from March 20, 2026. Detailed subject-wise schedule is available on the exam portal.', type: 'exam', date: '2026-02-28', priority: 'high' },

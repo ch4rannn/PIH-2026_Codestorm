@@ -3,8 +3,7 @@ import { Badge } from '@/components/ui/badge'
 import { Progress } from '@/components/ui/progress'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Calendar, CheckCircle2, XCircle, Clock, FileText, CreditCard, Upload, Bell } from 'lucide-react'
+import { CheckCircle2, Clock, FileText, CreditCard, Upload } from 'lucide-react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 
 // Attendance Data

@@ -1,9 +1,7 @@
 import { useState, useRef } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Upload, FileText, Eye, Trash2, Search } from 'lucide-react'
-import { Input } from '@/components/ui/input'
+import { Upload, FileText, Eye, Trash2 } from 'lucide-react'
 
 const mockPdfs = [
     { id: '1', name: 'DSA Complete Notes.pdf', size: '2.4 MB', uploadedAt: '2026-02-20', subject: 'DSA', pages: 48 },
@@ -13,7 +11,7 @@ const mockPdfs = [
 ]
 
 export default function PdfLibrary() {
-    const [pdfs, setPdfs] = useState(mockPdfs)
+    const [pdfs] = useState(mockPdfs)
     const [viewPdf, setViewPdf] = useState<string | null>(null)
     const fileRef = useRef<HTMLInputElement>(null)
 

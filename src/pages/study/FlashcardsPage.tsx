@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Progress } from '@/components/ui/progress'
-import { RotateCcw, ChevronLeft, ChevronRight, Brain, Zap, Check, X, Shuffle } from 'lucide-react'
+import { ChevronLeft, Brain, Check, X } from 'lucide-react'
 
 const flashcardSets = [
     { id: '1', title: 'DSA - Arrays & Sorting', cards: 20, mastered: 14, subject: 'DSA', lastReview: '2 hours ago' },

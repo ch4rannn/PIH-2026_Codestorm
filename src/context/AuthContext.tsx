@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, type ReactNode } from 'react'
+import { createContext, useContext, useState, type ReactNode } from 'react'
 
 export type UserRole = 'student' | 'faculty' | 'admin' | 'alumni'
 
@@ -30,19 +30,14 @@ const MOCK_USERS: Record<string, User> = {
 }
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-    const [user, setUser] = useState<User | null>(null)
-    const [token, setToken] = useState<string | null>(null)
-    const [loading, setLoading] = useState(true)
-
-    useEffect(() => {
-        const savedToken = localStorage.getItem('uims_token')
+    const [user, setUser] = useState<User | null>(() => {
         const savedUser = localStorage.getItem('uims_user')
-        if (savedToken && savedUser) {
-            setToken(savedToken)
-            setUser(JSON.parse(savedUser))
-        }
-        setLoading(false)
-    }, [])
+        return savedUser ? JSON.parse(savedUser) : null
+    })
+    const [token, setToken] = useState<string | null>(() => {
+        return localStorage.getItem('uims_token')
+    })
+    const [loading, setLoading] = useState(false)
 
     const login = async (email: string, _password: string, role: UserRole) => {
         setLoading(true)
@@ -71,6 +66,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     )
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useAuth() {
     const context = useContext(AuthContext)
     if (!context) throw new Error('useAuth must be used within AuthProvider')

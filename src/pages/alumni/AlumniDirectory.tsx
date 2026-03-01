@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { Search, Users, Building2, Calendar, MessageCircle, Share2, Linkedin } from 'lucide-react'
+import { Search, MessageCircle, Share2 } from 'lucide-react'
 
 const alumni = [
     { id: '1', name: 'Ankit Verma', role: 'SDE-2', company: 'Google', batch: '2020', experience: '4 yrs', skills: ['React', 'Go', 'K8s'], available: true },

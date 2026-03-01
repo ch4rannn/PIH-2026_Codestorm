@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import { useAuth, type UserRole } from '@/context/AuthContext'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { GraduationCap, Eye, EyeOff } from 'lucide-react'
 
 const roles: { value: UserRole; label: string; desc: string }[] = [
@@ -78,8 +78,8 @@ export default function LoginPage() {
                                 key={r.value}
                                 onClick={() => setRole(r.value)}
                                 className={`p-3 rounded-lg border text-left transition-all ${role === r.value
-                                        ? 'border-primary bg-primary/5 ring-2 ring-primary/20'
-                                        : 'border-border hover:border-primary/30 hover:bg-accent/50'
+                                    ? 'border-primary bg-primary/5 ring-2 ring-primary/20'
+                                    : 'border-border hover:border-primary/30 hover:bg-accent/50'
                                     }`}
                             >
                                 <div className="text-sm font-medium">{r.label}</div>

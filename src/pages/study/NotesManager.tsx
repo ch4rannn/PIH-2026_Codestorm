@@ -2,9 +2,8 @@ import { useState } from 'react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Textarea } from '@/components/ui/textarea'
 import { Input } from '@/components/ui/input'
-import { FileText, Plus, Edit3, Trash2, Save, Search } from 'lucide-react'
+import { Plus, Edit3, Trash2, Search } from 'lucide-react'
 
 const mockNotes = [
     { id: '1', title: 'DSA - Binary Trees Summary', content: 'Binary tree traversals: Inorder (L-Root-R), Preorder (Root-L-R), Postorder (L-R-Root). BST property: left < root < right...', subject: 'DSA', updatedAt: '2 hours ago' },
@@ -14,7 +13,6 @@ const mockNotes = [
 
 export default function NotesManager() {
     const [notes] = useState(mockNotes)
-    const [editingId, setEditingId] = useState<string | null>(null)
     const [search, setSearch] = useState('')
 
     const filtered = notes.filter(n => !search || n.title.toLowerCase().includes(search.toLowerCase()) || n.subject.toLowerCase().includes(search.toLowerCase()))

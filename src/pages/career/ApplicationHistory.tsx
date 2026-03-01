@@ -1,8 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
-import { Briefcase, Clock, CheckCircle2, XCircle, Hourglass, ExternalLink } from 'lucide-react'
+import { Hourglass, CheckCircle2, XCircle } from 'lucide-react'
 
 const applications = [
     { id: '1', title: 'Frontend Developer Intern', company: 'TechCorp India', appliedDate: '2026-02-15', status: 'under_review', type: 'Internship' },

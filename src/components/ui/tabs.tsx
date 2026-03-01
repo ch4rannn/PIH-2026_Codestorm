@@ -10,7 +10,7 @@ const Tabs = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElemen
             <div ref={ref} className={cn("", className)} {...props} data-value={current}>
                 {React.Children.map(children, child => {
                     if (React.isValidElement(child)) {
-                        return React.cloneElement(child as React.ReactElement<any>, { _selected: current, _onSelect: handleChange })
+                        return React.cloneElement(child as React.ReactElement<Record<string, unknown>>, { _selected: current, _onSelect: handleChange })
                     }
                     return child
                 })}
@@ -25,7 +25,7 @@ const TabsList = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
         <div ref={ref} className={cn("inline-flex h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground", className)} {...props}>
             {React.Children.map(children, child => {
                 if (React.isValidElement(child)) {
-                    return React.cloneElement(child as React.ReactElement<any>, { _selected, _onSelect })
+                    return React.cloneElement(child as React.ReactElement<Record<string, unknown>>, { _selected, _onSelect })
                 }
                 return child
             })}

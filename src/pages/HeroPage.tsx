@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils"
 import { useRef, useEffect, useCallback, useState } from "react"
 import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Mail, Menu, SendHorizonal, X, GraduationCap, Users, Moon, Sun } from "lucide-react"
+import { ArrowRight, Menu, SendHorizonal, X, GraduationCap, Users, Moon, Sun } from "lucide-react"
 import { useTheme } from "@/context/ThemeContext"
 
 import { motion } from "framer-motion"
@@ -91,6 +91,8 @@ function Globe({
         dotsRef.current = dots
     }, [])
 
+    const drawRef = useRef<() => void>(() => { })
+
     const draw = useCallback(() => {
         const canvas = canvasRef.current; if (!canvas) return
         const ctx = canvas.getContext("2d"); if (!ctx) return
@@ -146,10 +148,12 @@ function Globe({
             ctx.beginPath(); ctx.arc(sx, sy, 2.5, 0, Math.PI * 2); ctx.fillStyle = markerColor; ctx.fill()
             if (marker.label) { ctx.font = "10px system-ui, sans-serif"; ctx.fillStyle = markerColor.replace("1)", "0.6)"); ctx.fillText(marker.label, sx + 8, sy + 3) }
         }
-        animRef.current = requestAnimationFrame(draw)
+        animRef.current = requestAnimationFrame(drawRef.current)
     }, [dotColor, arcColor, markerColor, autoRotateSpeed, connections, markers])
 
-    useEffect(() => { animRef.current = requestAnimationFrame(draw); return () => cancelAnimationFrame(animRef.current) }, [draw])
+    useEffect(() => { drawRef.current = draw }, [draw])
+
+    useEffect(() => { animRef.current = requestAnimationFrame(drawRef.current); return () => cancelAnimationFrame(animRef.current) }, [draw])
 
     const onPointerDown = useCallback((e: React.PointerEvent) => {
         dragRef.current = { active: true, startX: e.clientX, startY: e.clientY, startRotY: rotYRef.current, startRotX: rotXRef.current };

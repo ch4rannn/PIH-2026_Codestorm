@@ -1,12 +1,11 @@
 import { useState } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Textarea } from '@/components/ui/textarea'
-import { Input } from '@/components/ui/input'
 import { useAuth } from '@/context/AuthContext'
-import { Heart, MessageCircle, Share2, Filter, Send, CheckCircle2, Plus, Image, Calendar, Briefcase, Megaphone } from 'lucide-react'
+import { Heart, MessageCircle, Share2, Send, CheckCircle2, Plus, Image, Calendar, Briefcase, Megaphone } from 'lucide-react'
 
 const mockPosts = [
     { id: '1', author: 'Dr. Priya Sharma', role: 'faculty', avatar: 'PS', content: 'Registration for the Annual TechFest 2026 is now open! Last date to register: March 10th. Theme: "AI for Social Good". Register through the student portal.', type: 'event', likes: 42, comments: 8, time: '2 hours ago', verified: true },

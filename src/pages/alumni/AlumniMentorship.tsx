@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { CheckCircle2, XCircle, Clock, MessageCircle, Calendar } from 'lucide-react'
+import { CheckCircle2, XCircle, Calendar } from 'lucide-react'
 
 const mentorshipRequests = [
     { id: '1', student: 'Rahul Kumar', topic: 'SDE Interview Prep', date: '2026-02-25', status: 'pending', department: 'CS' },

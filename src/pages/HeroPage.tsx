@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils"
 import { useRef, useEffect, useCallback, useState } from "react"
 import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Mail, Menu, SendHorizonal, X } from "lucide-react"
+import { ArrowRight, Mail, Menu, SendHorizonal, X, GraduationCap } from "lucide-react"
 
 // ========== GLOBE COMPONENT (User-provided, preserved exactly) ==========
 
@@ -175,11 +175,12 @@ const menuItems = [
 ]
 
 const Logo = ({ className }: { className?: string }) => (
-    <svg viewBox="0 0 78 18" fill="none" xmlns="http://www.w3.org/2000/svg" className={cn('h-5 w-auto', className)}>
-        <path d="M3 0H5V18H3V0ZM13 0H15V18H13V0ZM18 3V5H0V3H18ZM0 15V13H18V15H0Z" fill="url(#logo-gradient)" />
-        <path d="M27.06 7.054V12.239C27.06 12.5903 27.1393 12.8453 27.298 13.004C27.468 13.1513 27.7513 13.225 28.148 13.225H29.338V14.84H27.808C26.9353 14.84 26.2667 14.636 25.802 14.228C25.3373 13.82 25.105 13.157 25.105 12.239V7.054H24V5.473H25.105V3.144H27.06V5.473H29.338V7.054H27.06ZM30.4782 10.114C30.4782 9.17333 30.6709 8.34033 31.0562 7.615C31.4529 6.88967 31.9855 6.32867 32.6542 5.932C33.3342 5.524 34.0822 5.32 34.8982 5.32C35.6349 5.32 36.2752 5.46733 36.8192 5.762C37.3745 6.04533 37.8165 6.40233 38.1452 6.833V5.473H40.1002V14.84H38.1452V13.446C37.8165 13.888 37.3689 14.2563 36.8022 14.551C36.2355 14.8457 35.5895 14.993 34.8642 14.993C34.0595 14.993 33.3229 14.789 32.6542 14.381C31.9855 13.9617 31.4529 13.3837 31.0562 12.647C30.6709 11.899 30.4782 11.0547 30.4782 10.114ZM38.1452 10.148C38.1452 9.502 38.0092 8.941 37.7372 8.465C37.4765 7.989 37.1309 7.62633 36.7002 7.377C36.2695 7.12767 35.8049 7.003 35.3062 7.003C34.8075 7.003 34.3429 7.12767 33.9122 7.377C33.4815 7.615 33.1302 7.972 32.8582 8.448C32.5975 8.91267 32.4672 9.468 32.4672 10.114C32.4672 10.76 32.5975 11.3267 32.8582 11.814C33.1302 12.3013 33.4815 12.6753 33.9122 12.936C34.3542 13.1853 34.8189 13.31 35.3062 13.31C35.8049 13.31 36.2695 13.1853 36.7002 12.936C37.1309 12.6867 37.4765 12.324 37.7372 11.848C38.0092 11.3607 38.1452 10.794 38.1452 10.148ZM43.6317 4.232C43.2803 4.232 42.9857 4.113 42.7477 3.875C42.5097 3.637 42.3907 3.34233 42.3907 2.991C42.3907 2.63967 42.5097 2.345 42.7477 2.107C42.9857 1.869 43.2803 1.75 43.6317 1.75C43.9717 1.75 44.2607 1.869 44.4987 2.107C44.7367 2.345 44.8557 2.63967 44.8557 2.991C44.8557 3.34233 44.7367 3.637 44.4987 3.875C44.2607 4.113 43.9717 4.232 43.6317 4.232ZM44.5837 5.473V14.84H42.6457V5.473H44.5837ZM49.0661 2.26V14.84H47.1281V2.26H49.0661ZM50.9645 10.114C50.9645 9.17333 51.1572 8.34033 51.5425 7.615C51.9392 6.88967 52.4719 6.32867 53.1405 5.932C53.8205 5.524 54.5685 5.32 55.3845 5.32C56.1212 5.32 56.7615 5.46733 57.3055 5.762C57.8609 6.04533 58.3029 6.40233 58.6315 6.833V5.473H60.5865V14.84H58.6315V13.446C58.3029 13.888 57.8552 14.2563 57.2885 14.551C56.7219 14.8457 56.0759 14.993 55.3505 14.993C54.5459 14.993 53.8092 14.789 53.1405 14.381C52.4719 13.9617 51.9392 13.3837 51.5425 12.647C51.1572 11.899 50.9645 11.0547 50.9645 10.114ZM58.6315 10.148C58.6315 9.502 58.4955 8.941 58.2235 8.465C57.9629 7.989 57.6172 7.62633 57.1865 7.377C56.7559 7.12767 56.2912 7.003 55.7925 7.003C55.2939 7.003 54.8292 7.12767 54.3985 7.377C53.9679 7.615 53.6165 7.972 53.3445 8.448C53.0839 8.91267 52.9535 9.468 52.9535 10.114C52.9535 10.76 53.0839 11.3267 53.3445 11.814C53.6165 12.3013 53.9679 12.6753 54.3985 12.936C54.8405 13.1853 55.3052 13.31 55.7925 13.31C56.2912 13.31 56.7559 13.1853 57.1865 12.936C57.6172 12.6867 57.9629 12.324 58.2235 11.848C58.4955 11.3607 58.6315 10.794 58.6315 10.148ZM65.07 6.833C65.3533 6.357 65.7273 5.98867 66.192 5.728C66.668 5.456 67.229 5.32 67.875 5.32V7.326H67.382C66.6227 7.326 66.0447 7.51867 65.648 7.904C65.2627 8.28933 65.07 8.958 65.07 9.91V14.84H63.132V5.473H65.07V6.833ZM73.3624 10.165L77.6804 14.84H75.0624L71.5944 10.811V14.84H69.6564V2.26H71.5944V9.57L74.9944 5.473H77.6804L73.3624 10.165Z" fill="currentColor" />
-        <defs><linearGradient id="logo-gradient" x1="10" y1="0" x2="10" y2="20" gradientUnits="userSpaceOnUse"><stop stopColor="#9B99FE" /><stop offset="1" stopColor="#2BC8B7" /></linearGradient></defs>
-    </svg>
+    <div className={cn('flex items-center gap-2.5', className)}>
+        <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
+            <GraduationCap className="w-4 h-4 text-primary-foreground" />
+        </div>
+        <span className="font-bold text-lg tracking-tight">UIMS 2.0</span>
+    </div>
 )
 
 export default function HeroPage() {
@@ -254,7 +255,125 @@ export default function HeroPage() {
                         </div>
                     </div>
                 </section>
+
+                {/* Features Section */}
+                <section id="features" className="py-24 bg-muted/30">
+                    <div className="max-w-5xl mx-auto px-6">
+                        <div className="text-center mb-16">
+                            <h2 className="text-3xl lg:text-4xl font-bold mb-4">Why Choose UIMS 2.0?</h2>
+                            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Enhance your university experience with smart, AI-driven tools that keep you ahead of the curve.</p>
+                        </div>
+                        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {[
+                                { title: 'Unified Experience', desc: 'All your academic and career needs accessible from a single, intuitive dashboard.', icon: <Menu className="w-6 h-6 text-primary" /> },
+                                { title: 'Smart Analytics', desc: 'Track your CGPA, attendance, and engagement with beautiful, real-time charts.', icon: <SendHorizonal className="w-6 h-6 text-primary" /> },
+                                { title: 'Role-Based Access', desc: 'Personalized views and permissions for students, faculty, alumni, and admins.', icon: <Users className="w-6 h-6 text-primary" /> },
+                            ].map((feature, i) => (
+                                <div key={i} className="bg-background rounded-2xl p-6 border shadow-sm hover:shadow-md transition-shadow">
+                                    <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+                                        {feature.icon}
+                                    </div>
+                                    <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
+                                    <p className="text-muted-foreground">{feature.desc}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* Modules Section */}
+                <section id="modules" className="py-24">
+                    <div className="max-w-5xl mx-auto px-6">
+                        <div className="text-center mb-16">
+                            <h2 className="text-3xl lg:text-4xl font-bold mb-4">Core Modules</h2>
+                            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Explore the powerful modules built into the University Smart Portal.</p>
+                        </div>
+                        <div className="grid md:grid-cols-2 gap-6">
+                            {[
+                                { title: 'Academics Core', desc: 'Track attendance, view results, submit assignments, and manage fee payments.' },
+                                { title: 'Career & Earning Hub', desc: 'Find internships, freelance gigs, and micro-tasks tailored to your skills.' },
+                                { title: 'Smart Study System', desc: 'Upload PDFs, generate flashcards, and track your study streak and mastery.' },
+                                { title: 'Alumni Network', desc: 'Connect with successful alumni for mentorship, referrals, and guidance.' },
+                                { title: 'Social Feed', desc: 'Stay updated with university events, announcements, and student achievements.' },
+                                { title: 'Admin Controls', desc: 'Comprehensive dashboards for administrators to manage users and verify content.' },
+                            ].map((module, i) => (
+                                <div key={i} className="flex gap-4 p-6 rounded-2xl border hover:border-primary/50 transition-colors">
+                                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-1">
+                                        <ArrowRight className="w-4 h-4 text-primary" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-lg font-semibold mb-2">{module.title}</h3>
+                                        <p className="text-muted-foreground">{module.desc}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* About Section */}
+                <section id="about" className="py-24 bg-primary text-primary-foreground">
+                    <div className="max-w-5xl mx-auto px-6 lg:flex items-center gap-12">
+                        <div className="lg:w-1/2 mb-10 lg:mb-0">
+                            <h2 className="text-3xl lg:text-4xl font-bold mb-6">About the Portal</h2>
+                            <p className="text-primary-foreground/80 text-lg leading-relaxed mb-6">
+                                UIMS 2.0 is designed to bridge the gap between academic learning and career readiness. We realized that students needed more than just a place to check their grades — they needed an ecosystem.
+                            </p>
+                            <p className="text-primary-foreground/80 text-lg leading-relaxed mb-8">
+                                Built with modern web technologies, our portal ensures a seamless, fast, and engaging experience for everyone on campus.
+                            </p>
+                            <Button variant="secondary" size="lg" asChild>
+                                <Link to="/login">Join the Platform</Link>
+                            </Button>
+                        </div>
+                        <div className="lg:w-1/2 grid grid-cols-2 gap-4">
+                            {[
+                                { stat: '10k+', label: 'Active Students' },
+                                { stat: '500+', label: 'Faculty Members' },
+                                { stat: '1k+', label: 'Alumni Mentors' },
+                                { stat: '99%', label: 'Uptime' },
+                            ].map((item, i) => (
+                                <div key={i} className="bg-primary-foreground/10 p-6 rounded-2xl text-center backdrop-blur-sm border border-primary-foreground/10">
+                                    <div className="text-3xl font-bold mb-2">{item.stat}</div>
+                                    <div className="text-sm text-primary-foreground/70">{item.label}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* Contact Section */}
+                <section id="contact" className="py-24">
+                    <div className="max-w-3xl mx-auto px-6 text-center">
+                        <h2 className="text-3xl lg:text-4xl font-bold mb-6">Get in Touch</h2>
+                        <p className="text-muted-foreground text-lg mb-10">
+                            Have questions about the platform or need technical support? Our team is here to help.
+                        </p>
+                        <form className="max-w-md mx-auto space-y-4 text-left">
+                            <div>
+                                <label className="text-sm font-medium mb-1.5 block">Name</label>
+                                <input type="text" className="w-full h-10 px-3 rounded-md border bg-background" placeholder="Your name" />
+                            </div>
+                            <div>
+                                <label className="text-sm font-medium mb-1.5 block">Email</label>
+                                <input type="email" className="w-full h-10 px-3 rounded-md border bg-background" placeholder="your@email.com" />
+                            </div>
+                            <div>
+                                <label className="text-sm font-medium mb-1.5 block">Message</label>
+                                <textarea className="w-full p-3 rounded-md border bg-background min-h-[120px]" placeholder="How can we help?" />
+                            </div>
+                            <Button className="w-full">Send Message</Button>
+                        </form>
+                    </div>
+                </section>
             </main>
+
+            {/* Footer */}
+            <footer className="py-8 border-t">
+                <div className="max-w-5xl mx-auto px-6 text-center text-sm text-muted-foreground">
+                    <p>&copy; {new Date().getFullYear()} UIMS 2.0 University Smart Portal. All rights reserved.</p>
+                </div>
+            </footer>
         </>
     )
 }

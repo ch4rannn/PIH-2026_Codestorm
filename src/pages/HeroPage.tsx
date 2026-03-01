@@ -4,6 +4,8 @@ import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Mail, Menu, SendHorizonal, X, GraduationCap, Users } from "lucide-react"
 
+import { motion } from "framer-motion"
+
 // ========== GLOBE COMPONENT (User-provided, preserved exactly) ==========
 
 interface GlobeProps {
@@ -217,10 +219,15 @@ export default function HeroPage() {
             </header>
 
             <main>
-                <section className="overflow-hidden">
-                    <div className="relative mx-auto max-w-5xl px-6 py-28 lg:py-20">
+                <section className="overflow-hidden min-h-[100dvh] flex items-center pt-24 lg:pt-0">
+                    <div className="relative mx-auto max-w-5xl px-6 w-full">
                         <div className="lg:flex lg:items-center lg:gap-12">
-                            <div className="relative z-10 mx-auto max-w-xl text-center lg:ml-0 lg:w-1/2 lg:text-left">
+                            <motion.div
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6 }}
+                                className="relative z-10 mx-auto max-w-xl text-center lg:ml-0 lg:w-1/2 lg:text-left"
+                            >
                                 <Link to="/" className="rounded-lg mx-auto flex w-fit items-center gap-2 border p-1 pr-3 lg:ml-0">
                                     <span className="bg-muted rounded-[calc(var(--radius)-0.25rem)] px-2 py-1 text-xs">New</span>
                                     <span className="text-sm">UIMS 2.0 — University Smart Portal</span>
@@ -242,16 +249,21 @@ export default function HeroPage() {
                                             </div>
                                         </div>
                                     </form>
-                                    <ul className="list-inside list-disc space-y-2 text-muted-foreground">
+                                    <ul className="list-inside list-disc space-y-2 text-muted-foreground transition-all">
                                         <li>Smart Academic Tracking</li>
                                         <li>Career & Earning Hub</li>
                                         <li>AI-Powered Study Tools</li>
                                     </ul>
                                 </div>
-                            </div>
-                            <div className="hidden lg:flex lg:w-1/2 lg:justify-center">
+                            </motion.div>
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.8, delay: 0.2 }}
+                                className="hidden lg:flex lg:w-1/2 lg:justify-center"
+                            >
                                 <Globe size={500} />
-                            </div>
+                            </motion.div>
                         </div>
                     </div>
                 </section>
@@ -259,23 +271,35 @@ export default function HeroPage() {
                 {/* Features Section */}
                 <section id="features" className="py-24 bg-muted/30">
                     <div className="max-w-5xl mx-auto px-6">
-                        <div className="text-center mb-16">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-100px" }}
+                            className="text-center mb-16"
+                        >
                             <h2 className="text-3xl lg:text-4xl font-bold mb-4">Why Choose UIMS 2.0?</h2>
                             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Enhance your university experience with smart, AI-driven tools that keep you ahead of the curve.</p>
-                        </div>
+                        </motion.div>
                         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
                             {[
                                 { title: 'Unified Experience', desc: 'All your academic and career needs accessible from a single, intuitive dashboard.', icon: <Menu className="w-6 h-6 text-primary" /> },
                                 { title: 'Smart Analytics', desc: 'Track your CGPA, attendance, and engagement with beautiful, real-time charts.', icon: <SendHorizonal className="w-6 h-6 text-primary" /> },
                                 { title: 'Role-Based Access', desc: 'Personalized views and permissions for students, faculty, alumni, and admins.', icon: <Users className="w-6 h-6 text-primary" /> },
                             ].map((feature, i) => (
-                                <div key={i} className="bg-background rounded-2xl p-6 border shadow-sm hover:shadow-md transition-shadow">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, margin: "-50px" }}
+                                    transition={{ delay: i * 0.1 }}
+                                    key={i}
+                                    className="bg-background rounded-2xl p-6 border shadow-sm hover:shadow-md transition-shadow"
+                                >
                                     <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
                                         {feature.icon}
                                     </div>
                                     <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
                                     <p className="text-muted-foreground">{feature.desc}</p>
-                                </div>
+                                </motion.div>
                             ))}
                         </div>
                     </div>
@@ -284,10 +308,15 @@ export default function HeroPage() {
                 {/* Modules Section */}
                 <section id="modules" className="py-24">
                     <div className="max-w-5xl mx-auto px-6">
-                        <div className="text-center mb-16">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-100px" }}
+                            className="text-center mb-16"
+                        >
                             <h2 className="text-3xl lg:text-4xl font-bold mb-4">Core Modules</h2>
                             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Explore the powerful modules built into the University Smart Portal.</p>
-                        </div>
+                        </motion.div>
                         <div className="grid md:grid-cols-2 gap-6">
                             {[
                                 { title: 'Academics Core', desc: 'Track attendance, view results, submit assignments, and manage fee payments.' },
@@ -297,7 +326,14 @@ export default function HeroPage() {
                                 { title: 'Social Feed', desc: 'Stay updated with university events, announcements, and student achievements.' },
                                 { title: 'Admin Controls', desc: 'Comprehensive dashboards for administrators to manage users and verify content.' },
                             ].map((module, i) => (
-                                <div key={i} className="flex gap-4 p-6 rounded-2xl border hover:border-primary/50 transition-colors">
+                                <motion.div
+                                    initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true, margin: "-50px" }}
+                                    transition={{ delay: i * 0.05 }}
+                                    key={i}
+                                    className="flex gap-4 p-6 rounded-2xl border hover:border-primary/50 transition-colors"
+                                >
                                     <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-1">
                                         <ArrowRight className="w-4 h-4 text-primary" />
                                     </div>
@@ -305,27 +341,32 @@ export default function HeroPage() {
                                         <h3 className="text-lg font-semibold mb-2">{module.title}</h3>
                                         <p className="text-muted-foreground">{module.desc}</p>
                                     </div>
-                                </div>
+                                </motion.div>
                             ))}
                         </div>
                     </div>
                 </section>
 
                 {/* About Section */}
-                <section id="about" className="py-24 bg-primary text-primary-foreground">
+                <section id="about" className="py-24 bg-zinc-950 text-zinc-50 dark:bg-zinc-900/40 border-y">
                     <div className="max-w-5xl mx-auto px-6 lg:flex items-center gap-12">
-                        <div className="lg:w-1/2 mb-10 lg:mb-0">
-                            <h2 className="text-3xl lg:text-4xl font-bold mb-6">About the Portal</h2>
-                            <p className="text-primary-foreground/80 text-lg leading-relaxed mb-6">
+                        <motion.div
+                            initial={{ opacity: 0, x: -30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true, margin: "-100px" }}
+                            className="lg:w-1/2 mb-10 lg:mb-0"
+                        >
+                            <h2 className="text-3xl lg:text-4xl font-bold mb-6 text-white">About the Portal</h2>
+                            <p className="text-zinc-400 text-lg leading-relaxed mb-6">
                                 UIMS 2.0 is designed to bridge the gap between academic learning and career readiness. We realized that students needed more than just a place to check their grades — they needed an ecosystem.
                             </p>
-                            <p className="text-primary-foreground/80 text-lg leading-relaxed mb-8">
+                            <p className="text-zinc-400 text-lg leading-relaxed mb-8">
                                 Built with modern web technologies, our portal ensures a seamless, fast, and engaging experience for everyone on campus.
                             </p>
-                            <Button variant="secondary" size="lg" asChild>
+                            <Button variant="secondary" size="lg" className="bg-white text-black hover:bg-zinc-200" asChild>
                                 <Link to="/login">Join the Platform</Link>
                             </Button>
-                        </div>
+                        </motion.div>
                         <div className="lg:w-1/2 grid grid-cols-2 gap-4">
                             {[
                                 { stat: '10k+', label: 'Active Students' },
@@ -333,10 +374,17 @@ export default function HeroPage() {
                                 { stat: '1k+', label: 'Alumni Mentors' },
                                 { stat: '99%', label: 'Uptime' },
                             ].map((item, i) => (
-                                <div key={i} className="bg-primary-foreground/10 p-6 rounded-2xl text-center backdrop-blur-sm border border-primary-foreground/10">
-                                    <div className="text-3xl font-bold mb-2">{item.stat}</div>
-                                    <div className="text-sm text-primary-foreground/70">{item.label}</div>
-                                </div>
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
+                                    viewport={{ once: true, margin: "-50px" }}
+                                    transition={{ delay: i * 0.1 }}
+                                    key={i}
+                                    className="bg-white/5 p-6 rounded-2xl text-center backdrop-blur-sm border border-white/10"
+                                >
+                                    <div className="text-3xl font-bold mb-2 text-white">{item.stat}</div>
+                                    <div className="text-sm text-zinc-400">{item.label}</div>
+                                </motion.div>
                             ))}
                         </div>
                     </div>
@@ -345,11 +393,23 @@ export default function HeroPage() {
                 {/* Contact Section */}
                 <section id="contact" className="py-24">
                     <div className="max-w-3xl mx-auto px-6 text-center">
-                        <h2 className="text-3xl lg:text-4xl font-bold mb-6">Get in Touch</h2>
-                        <p className="text-muted-foreground text-lg mb-10">
-                            Have questions about the platform or need technical support? Our team is here to help.
-                        </p>
-                        <form className="max-w-md mx-auto space-y-4 text-left">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-100px" }}
+                        >
+                            <h2 className="text-3xl lg:text-4xl font-bold mb-6">Get in Touch</h2>
+                            <p className="text-muted-foreground text-lg mb-10">
+                                Have questions about the platform or need technical support? Our team is here to help.
+                            </p>
+                        </motion.div>
+                        <motion.form
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-50px" }}
+                            transition={{ delay: 0.2 }}
+                            className="max-w-md mx-auto space-y-4 text-left"
+                        >
                             <div>
                                 <label className="text-sm font-medium mb-1.5 block">Name</label>
                                 <input type="text" className="w-full h-10 px-3 rounded-md border bg-background" placeholder="Your name" />
@@ -363,7 +423,7 @@ export default function HeroPage() {
                                 <textarea className="w-full p-3 rounded-md border bg-background min-h-[120px]" placeholder="How can we help?" />
                             </div>
                             <Button className="w-full">Send Message</Button>
-                        </form>
+                        </motion.form>
                     </div>
                 </section>
             </main>

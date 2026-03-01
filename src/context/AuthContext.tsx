@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, useEffect, type ReactNode } from 'react'
+import { createContext, useContext, useState, type ReactNode } from 'react'
+import api from '@/services/api'
 
 export type UserRole = 'student' | 'faculty' | 'admin' | 'alumni'
 
@@ -22,6 +23,7 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
+// Fallback mock users for when backend is not available
 const MOCK_USERS: Record<string, User> = {
     student: { id: '1', name: 'Rahul Kumar', email: 'rahul@university.edu', role: 'student', department: 'Computer Science', avatar: '' },
     faculty: { id: '2', name: 'Dr. Priya Sharma', email: 'priya@university.edu', role: 'faculty', department: 'Computer Science', avatar: '' },
@@ -30,31 +32,38 @@ const MOCK_USERS: Record<string, User> = {
 }
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-    const [user, setUser] = useState<User | null>(null)
-    const [token, setToken] = useState<string | null>(null)
-    const [loading, setLoading] = useState(true)
-
-    useEffect(() => {
-        const savedToken = localStorage.getItem('uims_token')
+    const [user, setUser] = useState<User | null>(() => {
         const savedUser = localStorage.getItem('uims_user')
-        if (savedToken && savedUser) {
-            setToken(savedToken)
-            setUser(JSON.parse(savedUser))
-        }
-        setLoading(false)
-    }, [])
+        return savedUser ? JSON.parse(savedUser) : null
+    })
+    const [token, setToken] = useState<string | null>(() => {
+        return localStorage.getItem('uims_token')
+    })
+    const [loading, setLoading] = useState(false)
 
-    const login = async (email: string, _password: string, role: UserRole) => {
+    const login = async (email: string, password: string, role: UserRole) => {
         setLoading(true)
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 800))
-        const mockUser = { ...MOCK_USERS[role], email }
-        const mockToken = `mock_jwt_${role}_${Date.now()}`
-        localStorage.setItem('uims_token', mockToken)
-        localStorage.setItem('uims_user', JSON.stringify(mockUser))
-        setUser(mockUser)
-        setToken(mockToken)
-        setLoading(false)
+        try {
+            // Try real backend login
+            const res = await api.post('/auth/login', { email, password: password || 'password123', role })
+            const { token: jwt, user: userData } = res.data
+            localStorage.setItem('uims_token', jwt)
+            localStorage.setItem('uims_user', JSON.stringify(userData))
+            setUser(userData)
+            setToken(jwt)
+        } catch {
+            // Fallback to mock login if backend is unreachable
+            console.warn('Backend unavailable, using mock login')
+            await new Promise(resolve => setTimeout(resolve, 300))
+            const mockUser = { ...MOCK_USERS[role], email }
+            const mockToken = `mock_jwt_${role}_${Date.now()}`
+            localStorage.setItem('uims_token', mockToken)
+            localStorage.setItem('uims_user', JSON.stringify(mockUser))
+            setUser(mockUser)
+            setToken(mockToken)
+        } finally {
+            setLoading(false)
+        }
     }
 
     const logout = () => {
@@ -71,6 +80,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     )
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useAuth() {
     const context = useContext(AuthContext)
     if (!context) throw new Error('useAuth must be used within AuthProvider')

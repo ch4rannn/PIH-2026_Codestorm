@@ -5,12 +5,12 @@ import { Progress } from '@/components/ui/progress'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import {
-    BookOpen, Briefcase, Trophy, Users, TrendingUp, Calendar,
-    Star, Target, Clock, Award, Zap
+    BookOpen, Briefcase, Trophy, TrendingUp, Calendar,
+    Target, Zap
 } from 'lucide-react'
 import {
-    BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-    PieChart, Pie, Cell, LineChart, Line, Area, AreaChart
+    XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+    PieChart, Pie, Cell, Area, AreaChart
 } from 'recharts'
 
 const attendanceData = [

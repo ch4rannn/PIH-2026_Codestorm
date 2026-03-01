@@ -1,7 +1,7 @@
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Zap, Clock, IndianRupee, CheckCircle2 } from 'lucide-react'
+import { Clock, IndianRupee, CheckCircle2 } from 'lucide-react'
 
 const microTasks = [
     { id: '1', title: 'Survey Completion - Campus Food', reward: '₹50', time: '5 min', category: 'Survey', completed: false },

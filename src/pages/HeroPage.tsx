@@ -188,6 +188,7 @@ const Logo = ({ className }: { className?: string }) => (
 
 export default function HeroPage() {
     const [menuState, setMenuState] = useState(false)
+    const [previewRole, setPreviewRole] = useState('Student')
     const { theme, toggleTheme } = useTheme()
 
     return (
@@ -428,8 +429,12 @@ export default function HeroPage() {
                             <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-10">Get a glimpse of the unified dashboard tailored for every role.</p>
 
                             <div className="flex justify-center gap-2 mb-12">
-                                {['Student', 'Faculty', 'Admin'].map((role, i) => (
-                                    <button key={i} className={cn("px-6 py-2.5 rounded-full text-sm font-medium transition-all", i === 0 ? "bg-primary text-primary-foreground shadow-md shadow-primary/20" : "bg-muted text-muted-foreground hover:bg-muted/80")}>
+                                {['Student', 'Faculty', 'Admin'].map((role) => (
+                                    <button
+                                        key={role}
+                                        onClick={() => setPreviewRole(role)}
+                                        className={cn("px-6 py-2.5 rounded-full text-sm font-medium transition-all", previewRole === role ? "bg-primary text-primary-foreground shadow-md shadow-primary/20" : "bg-muted text-muted-foreground hover:bg-muted/80")}
+                                    >
                                         {role} View
                                     </button>
                                 ))}
@@ -447,25 +452,104 @@ export default function HeroPage() {
                                 <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
                                 <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
                             </div>
-                            <div className="aspect-[16/9] bg-zinc-100 dark:bg-zinc-900/50 p-8">
+                            <div className="aspect-[16/9] bg-zinc-100 dark:bg-zinc-900/50 p-4 sm:p-8">
                                 {/* Dummy Dashboard UI */}
-                                <div className="grid grid-cols-4 gap-6 h-full">
+                                <motion.div
+                                    key={previewRole}
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ duration: 0.4 }}
+                                    className="grid grid-cols-4 gap-4 sm:gap-6 h-full"
+                                >
+                                    {/* Sidebar */}
                                     <div className="col-span-1 flex flex-col gap-4">
-                                        <div className="h-10 bg-background rounded-lg border border-border"></div>
-                                        <div className="h-full bg-background rounded-lg border border-border"></div>
-                                    </div>
-                                    <div className="col-span-3 flex flex-col gap-6">
-                                        <div className="grid grid-cols-3 gap-6">
-                                            <div className="h-24 bg-background rounded-2xl border border-border shadow-sm"></div>
-                                            <div className="h-24 bg-background rounded-2xl border border-border shadow-sm"></div>
-                                            <div className="h-24 bg-background rounded-2xl border border-border shadow-sm"></div>
+                                        <div className="h-8 sm:h-10 bg-background rounded-lg border border-border flex items-center px-4 gap-3">
+                                            <div className="w-4 h-4 rounded-full bg-primary/40 shrink-0"></div>
+                                            <div className="w-16 h-2 rounded-full bg-muted-foreground/30 hidden sm:block"></div>
                                         </div>
-                                        <div className="grid grid-cols-3 gap-6 h-full">
-                                            <div className="col-span-2 bg-background rounded-2xl border border-border shadow-sm"></div>
-                                            <div className="col-span-1 bg-background rounded-2xl border border-border shadow-sm"></div>
+                                        <div className="flex-1 bg-background rounded-lg border border-border p-2 sm:p-4 flex flex-col gap-3">
+                                            {[1, 2, 3, 4, 5].map(i => (
+                                                <div key={i} className="flex items-center gap-3 p-1 sm:p-2 rounded-md hover:bg-muted transition-colors">
+                                                    <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-md bg-muted-foreground/20 shrink-0"></div>
+                                                    <div className="w-full h-2 rounded-full bg-muted-foreground/20 hidden sm:block"></div>
+                                                </div>
+                                            ))}
                                         </div>
                                     </div>
-                                </div>
+
+                                    {/* Main Content */}
+                                    <div className="col-span-3 flex flex-col gap-4 sm:gap-6">
+                                        {/* Top Stats */}
+                                        <div className="grid grid-cols-3 gap-4 sm:gap-6">
+                                            {[1, 2, 3].map(i => (
+                                                <div key={i} className="h-16 sm:h-24 bg-background rounded-xl sm:rounded-2xl border border-border shadow-sm p-3 sm:p-4 flex flex-col justify-between">
+                                                    <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                                                        <div className="w-3 h-3 sm:w-4 sm:h-4 bg-primary/50 rounded-full"></div>
+                                                    </div>
+                                                    <div className="w-12 sm:w-16 h-2 sm:h-3 rounded-full bg-foreground/20 mt-auto"></div>
+                                                </div>
+                                            ))}
+                                        </div>
+
+                                        {/* Bottom Area */}
+                                        <div className="grid grid-cols-3 gap-4 sm:gap-6 flex-1">
+                                            <div className="col-span-2 bg-background rounded-xl sm:rounded-2xl border border-border shadow-sm p-4 sm:p-6 flex flex-col gap-4">
+                                                <div className="w-24 sm:w-32 h-3 sm:h-4 rounded-full bg-foreground/20 mb-2"></div>
+
+                                                {previewRole === 'Student' && (
+                                                    <div className="flex-1 rounded-xl bg-gradient-to-t from-primary/10 to-transparent border border-border flex items-end p-2 sm:p-4 gap-1 sm:gap-2">
+                                                        {[40, 70, 45, 90, 65, 80, 50].map((h, i) => (
+                                                            <div key={i} className="flex-1 bg-primary/40 rounded-t-sm sm:rounded-t-md transition-all duration-1000" style={{ height: `${h}%` }}></div>
+                                                        ))}
+                                                    </div>
+                                                )}
+
+                                                {previewRole === 'Faculty' && (
+                                                    <div className="flex-1 flex flex-col gap-2 sm:gap-3">
+                                                        {[1, 2, 3, 4].map(i => (
+                                                            <div key={i} className="w-full flex-1 rounded-lg bg-muted flex items-center px-3 sm:px-4 gap-3 sm:gap-4">
+                                                                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-foreground/20 shrink-0"></div>
+                                                                <div className="w-20 sm:w-32 h-2 rounded-full bg-foreground/20"></div>
+                                                                <div className="ml-auto w-8 sm:w-12 h-3 sm:h-4 rounded-lg bg-primary/20"></div>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                )}
+
+                                                {previewRole === 'Admin' && (
+                                                    <div className="flex-1 grid grid-cols-2 gap-4">
+                                                        <div className="rounded-xl border border-border border-dashed flex items-center justify-center p-4">
+                                                            <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full border-4 sm:border-[6px] border-primary/20 border-t-primary border-l-primary/60 animate-[spin_3s_linear_infinite]"></div>
+                                                        </div>
+                                                        <div className="flex flex-col justify-center gap-4">
+                                                            {[1, 2, 3].map(i => (
+                                                                <div key={i} className="flex items-center gap-2">
+                                                                    <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-primary/60 shrink-0"></div>
+                                                                    <div className="w-full h-2 rounded-full bg-foreground/20"></div>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </div>
+
+                                            <div className="col-span-1 bg-background rounded-xl sm:rounded-2xl border border-border shadow-sm p-4 sm:p-5 flex flex-col gap-4 overflow-hidden">
+                                                <div className="w-20 sm:w-24 h-3 sm:h-4 rounded-full bg-foreground/20 mb-2"></div>
+                                                <div className="flex flex-col gap-3 sm:gap-4 flex-1">
+                                                    {[1, 2, 3, 4, 5].map(i => (
+                                                        <div key={i} className="flex items-start gap-2 sm:gap-3">
+                                                            <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-muted shrink-0 mt-0.5 sm:mt-1"></div>
+                                                            <div className="flex flex-col gap-1.5 sm:gap-2 w-full pt-1">
+                                                                <div className="w-full h-1.5 sm:h-2 rounded-full bg-foreground/30"></div>
+                                                                <div className="w-2/3 h-1.5 sm:h-2 rounded-full bg-foreground/10"></div>
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </motion.div>
                             </div>
                         </motion.div>
                     </div>

@@ -168,6 +168,16 @@ async function seed() {
     )
     console.log('  ✓ Career Applications & Completions')
 
+    // Admin Verifications
+    await pool.query(
+        `INSERT INTO content_verifications (type, title, submitted_by, status, reference_id) VALUES
+        ('Internship', 'ML Intern at AI Corp', 'Placement Cell', 'pending', 5),
+        ('Alumni', 'Vikash Patel - TCS Event', 'Alumni Cell', 'pending', NULL),
+        ('Notice', 'Guest Lecture Announcement', 'Dr. Priya Sharma', 'pending', NULL),
+        ('Freelance', 'Web Dev at StartupXYZ', 'Career Hub', 'pending', 1)`
+    )
+    console.log('  ✓ Admin Verifications')
+
     console.log('🎉 Seed complete!')
     await pool.end()
 }

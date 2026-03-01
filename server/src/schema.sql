@@ -8,7 +8,8 @@ CREATE TABLE IF NOT EXISTS users (
     role ENUM('student', 'faculty', 'admin', 'alumni') NOT NULL DEFAULT 'student',
     department VARCHAR(100),
     avatar VARCHAR(255) DEFAULT '',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_login TIMESTAMP NULL
 );
 
 CREATE TABLE IF NOT EXISTS attendance (
@@ -137,5 +138,15 @@ CREATE TABLE IF NOT EXISTS task_completions (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (task_id) REFERENCES micro_tasks(id) ON DELETE CASCADE,
     UNIQUE KEY unique_completion (user_id, task_id)
+);
+
+CREATE TABLE IF NOT EXISTS content_verifications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    type ENUM('Internship', 'Freelance', 'Notice', 'Event', 'Alumni') NOT NULL,
+    title VARCHAR(200) NOT NULL,
+    submitted_by VARCHAR(100) NOT NULL,
+    status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
+    reference_id INT, -- ID of the related internship, gig, or notice
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
